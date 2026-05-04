@@ -309,8 +309,101 @@ const BACKGROUNDS = [
 const CHARS = [
   {
     id:'princess', nameKo:'귀여운 공주', nameEn:'Sweet Princess', difficulty:1, cc:'#FFB3BA',
-    unlockReq: null, unlocks: 'fairy', headPos: {xpct:.5, ypct:.2},
-    prev:{bg:'#87CEEB',ground:'#90EE90',skirt:'#FFB6C1',bodice:'#FF69B4',face:'#FFDAB9',hair:'#DAA520',crown:'#FFD700',wand:'#C0C0C0'},
+    unlockReq:null, unlocks:'fairy', headPos:{xpct:.5,ypct:.22},
+    prev:{bg:'#87CEEB',ground:'#90EE90',skirt:'#FFB6C1',skirt2:'#FF8FB0',sleeves:'#FF69B4',bodice:'#FF4488',face:'#FFDAB9',hair:'#E8A835',crown:'#FFD700',wand:'#DDA0DD'},
+    deco:`<ellipse cx="172" cy="147" rx="17" ry="13" fill="white" stroke="#333" stroke-width="1.2"/><ellipse cx="228" cy="147" rx="17" ry="13" fill="white" stroke="#333" stroke-width="1.2"/><circle cx="174" cy="148" r="10" fill="#6B3A2A"/><circle cx="226" cy="148" r="10" fill="#6B3A2A"/><circle cx="175" cy="149" r="6" fill="#111"/><circle cx="227" cy="149" r="6" fill="#111"/><circle cx="180" cy="144" r="3.5" fill="white"/><circle cx="232" cy="144" r="3.5" fill="white"/><path d="M155,138 Q172,128 189,136" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/><path d="M211,136 Q228,128 245,138" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/><line x1="156" y1="138" x2="153" y2="129" stroke="#111" stroke-width="2"/><line x1="165" y1="133" x2="164" y2="124" stroke="#111" stroke-width="2"/><line x1="174" y1="131" x2="174" y2="122" stroke="#111" stroke-width="2"/><line x1="183" y1="133" x2="185" y2="124" stroke="#111" stroke-width="2"/><line x1="244" y1="138" x2="247" y2="129" stroke="#111" stroke-width="2"/><line x1="235" y1="133" x2="236" y2="124" stroke="#111" stroke-width="2"/><line x1="226" y1="131" x2="226" y2="122" stroke="#111" stroke-width="2"/><line x1="217" y1="133" x2="215" y2="124" stroke="#111" stroke-width="2"/><path d="M152,130 Q172,119 192,127" fill="none" stroke="#8B5E3C" stroke-width="3" stroke-linecap="round"/><path d="M208,127 Q228,119 248,130" fill="none" stroke="#8B5E3C" stroke-width="3" stroke-linecap="round"/><path d="M195,168 Q200,176 205,168" fill="none" stroke="#c0896a" stroke-width="2.2" stroke-linecap="round"/><path d="M178,185 Q200,200 222,185" fill="none" stroke="#c0896a" stroke-width="3" stroke-linecap="round"/><ellipse cx="148" cy="174" rx="16" ry="10" fill="#FFB3BA" opacity="0.55"/><ellipse cx="252" cy="174" rx="16" ry="10" fill="#FFB3BA" opacity="0.55"/><path d="M80,270 Q108,262 135,272 Q162,282 188,272 Q215,262 242,272 Q268,282 295,272 Q322,262 342,270" fill="none" stroke="#FF6B9D" stroke-width="3" stroke-linecap="round" opacity="0.55"/>`,
+    regions:[
+      {id:'bg',     label:'하늘',       d:'M0,0 L400,0 L400,500 L0,500 Z', z:0},
+      {id:'ground', label:'바닥',       d:'M0,454 C100,442 300,442 400,454 L400,500 L0,500 Z', z:1},
+      {id:'skirt',  label:'치마',       d:'M52,258 C24,310 10,382 6,476 Q46,466 86,476 Q126,466 166,476 Q206,466 246,476 Q286,466 326,476 Q362,466 384,476 C380,382 366,310 338,258 C305,242 200,236 200,236 C200,236 95,242 52,258 Z', z:2},
+      {id:'skirt2', label:'치마 주름',  d:'M80,268 C58,302 48,348 44,402 L356,402 C352,348 342,302 320,268 C290,252 200,248 200,248 C200,248 110,252 80,268 Z', z:3},
+      {id:'sleeves',label:'소매',       d:'M108,224 C76,216 58,240 64,272 C70,294 100,300 130,284 Q130,254 130,230 Z M292,224 C324,216 342,240 336,272 C330,294 300,300 270,284 Q270,254 270,230 Z', z:4},
+      {id:'bodice', label:'드레스 상체',d:'M143,212 C130,236 124,260 122,280 Q162,270 200,268 Q238,270 278,280 C276,260 270,236 257,212 C228,197 200,193 200,193 C200,193 172,197 143,212 Z', z:5},
+      {id:'face',   label:'얼굴',       d:'M200,62 C150,62 118,94 122,146 C126,188 160,218 200,218 C240,218 274,188 278,146 C282,94 250,62 200,62 Z', z:6},
+      {id:'hair',   label:'머리카락',   d:'M200,48 C143,38 97,72 100,132 C102,156 113,180 128,194 C128,144 150,110 200,104 C250,110 272,144 272,194 C287,180 298,156 300,132 C303,72 257,38 200,48 Z M128,194 C112,214 108,244 116,266 C124,276 140,270 145,252 C150,234 146,210 128,194 Z M272,194 C288,214 292,244 284,266 C276,276 260,270 255,252 C250,234 254,210 272,194 Z', z:7},
+      {id:'crown',  label:'왕관',       d:'M160,70 L165,42 L177,60 L186,28 L200,46 L214,28 L223,60 L235,42 L240,70 Q218,65 200,64 Q182,65 160,70 Z', z:8},
+      {id:'wand',   label:'마법봉',     d:'M324,116 L329,92 L334,116 L358,116 L339,131 L345,155 L329,142 L313,155 L319,131 L300,116 Z M326,155 L332,155 L340,315 L318,315 Z', z:9},
+    ]
+  },
+  {
+    id:'prince', nameKo:'용감한 왕자', nameEn:'Brave Prince', difficulty:2, cc:'#BAFFC9',
+    unlockReq:null, unlocks:null, headPos:{xpct:.5,ypct:.2},
+    prev:{bg:'#87CEEB',ground:'#90EE90',cape:'#DC143C',boots:'#5C3010',pants:'#1E3A8A',belt:'#8B6914',tunic:'#1565C0',face:'#FFDAB9',hair:'#DAA520',crown:'#FFD700',sword:'#C0C0C0'},
+    deco:`<ellipse cx="172" cy="143" rx="15" ry="12" fill="white" stroke="#333" stroke-width="1.2"/><ellipse cx="228" cy="143" rx="15" ry="12" fill="white" stroke="#333" stroke-width="1.2"/><circle cx="174" cy="144" r="8.5" fill="#2E5090"/><circle cx="226" cy="144" r="8.5" fill="#2E5090"/><circle cx="175" cy="145" r="5" fill="#111"/><circle cx="227" cy="145" r="5" fill="#111"/><circle cx="179" cy="141" r="3" fill="white"/><circle cx="231" cy="141" r="3" fill="white"/><path d="M158,135 L188,133" fill="none" stroke="#111" stroke-width="2.8" stroke-linecap="round"/><path d="M212,133 L242,135" fill="none" stroke="#111" stroke-width="2.8" stroke-linecap="round"/><path d="M155,127 Q172,117 191,124" fill="none" stroke="#5C4A2A" stroke-width="3.5" stroke-linecap="round"/><path d="M209,124 Q228,117 245,127" fill="none" stroke="#5C4A2A" stroke-width="3.5" stroke-linecap="round"/><path d="M196,162 Q200,169 204,162" fill="none" stroke="#c0896a" stroke-width="2.2" stroke-linecap="round"/><path d="M183,178 Q200,190 217,178" fill="none" stroke="#c0896a" stroke-width="2.5" stroke-linecap="round"/>`,
+    regions:[
+      {id:'bg',    label:'하늘',  d:'M0,0 L400,0 L400,500 L0,500 Z', z:0},
+      {id:'ground',label:'바닥',  d:'M0,448 C100,436 300,436 400,448 L400,500 L0,500 Z', z:1},
+      {id:'cape',  label:'망토',  d:'M128,198 C104,242 90,302 84,382 C106,392 135,380 142,354 L150,298 C144,262 140,228 140,208 Z', z:2},
+      {id:'boots', label:'장화',  d:'M144,395 C141,426 140,450 143,454 L193,454 L193,395 Z M207,395 C207,426 207,450 210,454 L260,454 L265,395 Z', z:3},
+      {id:'pants', label:'바지',  d:'M142,298 L144,406 L198,406 L200,334 L202,406 L258,406 L262,298 Z', z:4},
+      {id:'belt',  label:'벨트',  d:'M138,288 Q200,283 262,288 L262,302 Q200,296 138,302 Z', z:5},
+      {id:'tunic', label:'갑옷',  d:'M128,198 C116,232 115,272 120,302 L280,302 C285,272 284,232 272,198 C244,182 200,177 200,177 C200,177 156,182 128,198 Z', z:6},
+      {id:'face',  label:'얼굴',  d:'M200,66 C152,66 120,97 124,148 C128,190 162,214 200,214 C238,214 272,190 276,148 C280,97 248,66 200,66 Z', z:7},
+      {id:'hair',  label:'머리',  d:'M200,53 C154,45 116,76 118,128 C120,148 128,166 142,176 C144,126 165,98 200,93 C235,98 256,126 258,176 C272,166 280,148 282,128 C284,76 246,45 200,53 Z', z:8},
+      {id:'crown', label:'왕관',  d:'M162,72 L167,46 L178,63 L187,38 L200,54 L213,38 L222,63 L233,46 L238,72 Q215,67 200,66 Q185,67 162,72 Z', z:9},
+      {id:'sword', label:'검',    d:'M280,204 L288,196 L358,124 L366,132 L296,212 Z M274,220 L308,186 L316,194 L282,228 Z M274,220 L278,235 L268,238 Z', z:10},
+    ]
+  },
+  {
+    id:'fairy', nameKo:'반짝이 요정', nameEn:'Sparkle Fairy', difficulty:1, cc:'#FFFFBA',
+    unlockReq:['princess','prince'], unlocks:'villain', headPos:{xpct:.5,ypct:.2},
+    prev:{bg:'#FFE4F0',ground:'#90EE90',wing_l:'rgba(200,240,255,.75)',wing_r:'rgba(200,240,255,.75)',wing_b_l:'rgba(220,200,255,.65)',wing_b_r:'rgba(220,200,255,.65)',dress:'#B8F5C8',dress2:'#7EE89A',face:'#FFDAB9',hair:'#FFD700',wand:'#FF69B4'},
+    deco:`<ellipse cx="172" cy="141" rx="16" ry="13" fill="white" stroke="#333" stroke-width="1.2"/><ellipse cx="228" cy="141" rx="16" ry="13" fill="white" stroke="#333" stroke-width="1.2"/><circle cx="174" cy="142" r="9" fill="#7B4FA6"/><circle cx="226" cy="142" r="9" fill="#7B4FA6"/><circle cx="175" cy="143" r="5.5" fill="#111"/><circle cx="227" cy="143" r="5.5" fill="#111"/><circle cx="180" cy="138" r="3.2" fill="white"/><circle cx="232" cy="138" r="3.2" fill="white"/><circle cx="186" cy="136" r="1.5" fill="white" opacity="0.8"/><circle cx="238" cy="136" r="1.5" fill="white" opacity="0.8"/><path d="M156,133 Q172,123 190,131" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/><path d="M210,131 Q228,123 244,133" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/><line x1="157" y1="133" x2="154" y2="124" stroke="#111" stroke-width="2"/><line x1="166" y1="128" x2="165" y2="119" stroke="#111" stroke-width="2"/><line x1="175" y1="126" x2="175" y2="117" stroke="#111" stroke-width="2"/><line x1="243" y1="133" x2="246" y2="124" stroke="#111" stroke-width="2"/><line x1="234" y1="128" x2="235" y2="119" stroke="#111" stroke-width="2"/><line x1="225" y1="126" x2="225" y2="117" stroke="#111" stroke-width="2"/><path d="M153,125 Q172,114 191,122" fill="none" stroke="#C0905A" stroke-width="3" stroke-linecap="round"/><path d="M209,122 Q228,114 247,125" fill="none" stroke="#C0905A" stroke-width="3" stroke-linecap="round"/><path d="M195,161 Q200,168 205,161" fill="none" stroke="#c0896a" stroke-width="2.2" stroke-linecap="round"/><path d="M178,177 Q200,192 222,177" fill="none" stroke="#c0896a" stroke-width="3" stroke-linecap="round"/><ellipse cx="148" cy="168" rx="16" ry="10" fill="#FFB3E6" opacity="0.5"/><ellipse cx="252" cy="168" rx="16" ry="10" fill="#FFB3E6" opacity="0.5"/>`,
+    regions:[
+      {id:'bg',      label:'하늘',        d:'M0,0 L400,0 L400,500 L0,500 Z', z:0},
+      {id:'ground',  label:'풀밭',        d:'M0,438 C100,424 300,424 400,438 L400,500 L0,500 Z', z:1},
+      {id:'wing_b_l',label:'아래 날개 왼',d:'M168,225 C138,255 85,252 52,288 C35,308 52,340 85,338 C115,336 145,310 165,280 Z', z:2},
+      {id:'wing_b_r',label:'아래 날개 오',d:'M232,225 C262,255 315,252 348,288 C365,308 348,340 315,338 C285,336 255,310 235,280 Z', z:2},
+      {id:'wing_l',  label:'날개 왼쪽',   d:'M168,228 C135,195 72,158 42,202 C20,240 62,298 125,284 C152,276 168,254 168,238 Z', z:3},
+      {id:'wing_r',  label:'날개 오른쪽', d:'M232,228 C265,195 328,158 358,202 C380,240 338,298 275,284 C248,276 232,254 232,238 Z', z:3},
+      {id:'dress2',  label:'치마',        d:'M148,228 C130,268 122,325 108,395 C138,406 200,402 200,402 C200,402 262,406 292,395 C278,325 270,268 252,228 C228,212 200,208 200,208 C200,208 172,212 148,228 Z', z:4},
+      {id:'dress',   label:'드레스 상체', d:'M155,220 C140,242 136,265 134,282 Q166,274 200,272 Q234,274 266,282 C264,265 260,242 245,220 C222,206 200,202 200,202 C200,202 178,206 155,220 Z', z:5},
+      {id:'face',    label:'얼굴',        d:'M200,62 C152,62 120,93 124,144 C128,186 162,212 200,212 C238,212 272,186 276,144 C280,93 248,62 200,62 Z', z:6},
+      {id:'hair',    label:'머리카락',    d:'M200,50 C148,41 105,74 108,130 C110,154 120,178 135,190 C136,142 158,110 200,105 C242,110 264,142 265,190 C280,178 290,154 292,130 C295,74 252,41 200,50 Z', z:7},
+      {id:'wand',    label:'마법 지팡이', d:'M316,152 C318,130 332,120 338,136 C344,152 332,168 325,168 C332,173 342,190 335,206 C328,222 316,212 314,190 C308,212 296,222 289,206 C282,190 292,173 299,168 C292,168 280,152 287,136 C294,120 308,130 316,152 Z M313,188 L318,378 L322,378 L328,188 Z', z:8},
+    ]
+  },
+  {
+    id:'villain', nameKo:'재미있는 악당', nameEn:'Funny Villain', difficulty:2, cc:'#BAE1FF',
+    unlockReq:['fairy'], unlocks:'dragon', headPos:{xpct:.5,ypct:.28},
+    prev:{bg:'#2D1B5E',ground:'#3A4A1E',collar:'#1a0a2e',robe:'#5B0099',robe2:'#3D0066',face:'#FFDAB9',hair:'#2F2F2F',hat:'#111',hat2:'#220044',orb:'#00FF7F',stick:'#8B6914'},
+    deco:`<ellipse cx="174" cy="192" rx="14" ry="11" fill="white" stroke="#333" stroke-width="1.2"/><ellipse cx="226" cy="192" rx="14" ry="11" fill="white" stroke="#333" stroke-width="1.2"/><circle cx="176" cy="193" r="7.5" fill="#1B5E20"/><circle cx="224" cy="193" r="7.5" fill="#1B5E20"/><circle cx="177" cy="194" r="4.5" fill="#111"/><circle cx="225" cy="194" r="4.5" fill="#111"/><circle cx="181" cy="190" r="2.2" fill="white"/><circle cx="229" cy="190" r="2.2" fill="white"/><path d="M161,183 Q175,179 189,184" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/><path d="M211,184 Q225,179 239,183" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/><path d="M155,173 Q174,161 196,175" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round"/><path d="M204,175 Q226,161 245,173" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round"/><path d="M197,210 Q200,216 203,210" fill="none" stroke="#c0896a" stroke-width="2.2" stroke-linecap="round"/><path d="M184,226 Q196,220 200,226 Q204,232 216,224" fill="none" stroke="#c0896a" stroke-width="2.2" stroke-linecap="round"/><path d="M189,238 C184,244 183,256 188,262" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/><path d="M197,240 C195,247 193,256 191,264" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/>`,
+    regions:[
+      {id:'bg',    label:'밤하늘', d:'M0,0 L400,0 L400,500 L0,500 Z', z:0},
+      {id:'ground',label:'바닥',   d:'M0,448 C100,436 300,436 400,448 L400,500 L0,500 Z', z:1},
+      {id:'stick', label:'지팡이', d:'M292,268 L298,268 L328,448 L322,448 Z', z:2},
+      {id:'robe2', label:'로브 안',d:'M118,280 C92,348 72,408 58,450 L342,450 C328,408 308,348 282,280 C260,265 200,260 200,260 C200,260 140,265 118,280 Z', z:3},
+      {id:'collar',label:'칼라',   d:'M148,268 C132,280 122,295 120,310 Q160,300 200,298 Q240,300 280,310 C278,295 268,280 252,268 C228,260 200,256 200,256 C200,256 172,260 148,268 Z', z:4},
+      {id:'robe',  label:'로브',   d:'M130,265 C108,298 96,345 90,410 Q145,398 200,396 Q255,398 310,410 C304,345 292,298 270,265 C248,252 200,248 200,248 C200,248 152,252 130,265 Z', z:5},
+      {id:'face',  label:'얼굴',   d:'M200,138 C156,138 125,165 128,210 C131,248 162,272 200,272 C238,272 269,248 272,210 C275,165 244,138 200,138 Z', z:6},
+      {id:'hair',  label:'머리',   d:'M200,118 C148,108 110,138 114,188 C116,208 125,226 138,236 C138,188 158,162 200,157 C242,162 262,188 262,236 C275,226 284,208 286,188 C290,138 252,108 200,118 Z', z:7},
+      {id:'hat2',  label:'모자 챙',d:'M128,135 C142,130 165,126 200,126 C235,126 258,130 272,135 C255,142 222,145 222,145 L230,58 L170,58 L178,145 C178,145 145,142 128,135 Z', z:8},
+      {id:'hat',   label:'모자',   d:'M134,133 C148,128 167,124 200,124 C233,124 252,128 266,133 C248,140 220,143 220,143 L228,55 L172,55 L180,143 C180,143 152,140 134,133 Z', z:9},
+      {id:'orb',   label:'마법 구슬',d:'M296,252 C287,242 287,229 296,219 C305,209 319,209 328,219 C337,229 337,242 328,252 C319,262 305,262 296,252 Z', z:10},
+    ]
+  },
+  {
+    id:'dragon', nameKo:'귀여운 용', nameEn:'Cute Dragon', difficulty:3, cc:'#FFDFBA',
+    unlockReq:['villain'], unlocks:null, headPos:{xpct:.5,ypct:.22},
+    prev:{bg:'#87CEEB',ground:'#90EE90',wing_l:'#FF5500',wing_r:'#FF5500',tail:'#FF6347',body:'#FF8C00',belly:'#FFD966',head:'#FF8C00',ear_l:'#FF4400',ear_r:'#FF4400',horns:'#8B0000',eyes:'white'},
+    deco:`<circle cx="172" cy="158" r="7.5" fill="#1a8a3a"/><circle cx="228" cy="158" r="7.5" fill="#1a8a3a"/><circle cx="172" cy="159" r="4.5" fill="#111"/><circle cx="228" cy="159" r="4.5" fill="#111"/><circle cx="175" cy="155" r="3" fill="white"/><circle cx="231" cy="155" r="3" fill="white"/><path d="M152,146 Q172,138 190,146" fill="none" stroke="#6B2D00" stroke-width="3.2" stroke-linecap="round"/><path d="M210,146 Q228,138 248,146" fill="none" stroke="#6B2D00" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="194" cy="188" rx="5" ry="4" fill="none" stroke="#6B2D00" stroke-width="2.2"/><ellipse cx="206" cy="188" rx="5" ry="4" fill="none" stroke="#6B2D00" stroke-width="2.2"/><path d="M177,202 Q200,220 223,202" fill="none" stroke="#6B2D00" stroke-width="2.8" stroke-linecap="round"/><line x1="185" y1="204" x2="187" y2="212" stroke="#6B2D00" stroke-width="2.2"/><line x1="200" y1="206" x2="200" y2="214" stroke="#6B2D00" stroke-width="2.2"/><line x1="215" y1="204" x2="213" y2="212" stroke="#6B2D00" stroke-width="2.2"/><ellipse cx="145" cy="178" rx="15" ry="9" fill="#FFCC66" opacity="0.42"/><ellipse cx="255" cy="178" rx="15" ry="9" fill="#FFCC66" opacity="0.42"/>`,
+    regions:[
+      {id:'bg',    label:'하늘',       d:'M0,0 L400,0 L400,500 L0,500 Z', z:0},
+      {id:'ground',label:'바닥',       d:'M0,428 C100,414 300,414 400,428 L400,500 L0,500 Z', z:1},
+      {id:'wing_l',label:'왼쪽 날개', d:'M105,268 C70,240 28,198 38,256 C44,292 72,326 112,320 Z', z:2},
+      {id:'wing_r',label:'오른쪽 날개',d:'M295,268 C330,240 372,198 362,256 C356,292 328,326 288,320 Z', z:2},
+      {id:'tail',  label:'꼬리',       d:'M282,372 C312,386 360,374 374,348 C386,320 368,295 344,303 C325,310 315,336 310,354 Z', z:2},
+      {id:'body',  label:'몸통',       d:'M200,238 C130,238 85,288 85,348 C85,420 132,452 200,452 C268,452 315,420 315,348 C315,288 270,238 200,238 Z', z:3},
+      {id:'belly', label:'배',         d:'M200,278 C170,278 148,308 148,348 C148,396 170,422 200,422 C230,422 252,396 252,348 C252,308 230,278 200,278 Z', z:4},
+      {id:'ear_l', label:'귀 왼쪽',   d:'M140,105 C128,85 118,72 122,95 C125,108 132,115 140,118 Z', z:5},
+      {id:'ear_r', label:'귀 오른쪽',  d:'M260,105 C272,85 282,72 278,95 C275,108 268,115 260,118 Z', z:5},
+      {id:'head',  label:'머리',       d:'M200,95 C150,95 122,125 125,170 C128,208 162,238 200,238 C238,238 272,208 275,170 C278,125 250,95 200,95 Z', z:6},
+      {id:'horns', label:'뿔',         d:'M165,108 L148,70 L170,102 Z M235,108 L252,70 L230,102 Z', z:7},
+      {id:'eyes',  label:'눈 흰자',   d:'M172,148 C163,140 152,142 152,155 C152,168 163,174 175,168 C184,163 183,148 172,148 Z M228,148 C237,140 248,142 248,155 C248,168 237,174 225,168 C216,163 217,148 228,148 Z', z:8},
+    ]
+  }
+];
+
     deco:`<ellipse cx="175" cy="133" rx="14" ry="11" fill="white" stroke="#333" stroke-width="1.2"/><ellipse cx="225" cy="133" rx="14" ry="11" fill="white" stroke="#333" stroke-width="1.2"/><circle cx="177" cy="134" r="7.5" fill="#6B3A2A"/><circle cx="223" cy="134" r="7.5" fill="#6B3A2A"/><circle cx="178" cy="135" r="4.5" fill="#111"/><circle cx="224" cy="135" r="4.5" fill="#111"/><circle cx="182" cy="131" r="2.5" fill="white"/><circle cx="228" cy="131" r="2.5" fill="white"/><path d="M162,126 Q176,116 191,124" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round"/><path d="M209,124 Q224,116 238,126" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round"/><line x1="163" y1="126" x2="160" y2="117" stroke="#111" stroke-width="1.5"/><line x1="171" y1="121" x2="170" y2="113" stroke="#111" stroke-width="1.5"/><line x1="179" y1="119" x2="179" y2="111" stroke="#111" stroke-width="1.5"/><line x1="237" y1="126" x2="240" y2="117" stroke="#111" stroke-width="1.5"/><line x1="229" y1="121" x2="230" y2="113" stroke="#111" stroke-width="1.5"/><line x1="221" y1="119" x2="221" y2="111" stroke="#111" stroke-width="1.5"/><path d="M159,118 Q176,109 193,117" fill="none" stroke="#8B5E3C" stroke-width="2.8" stroke-linecap="round"/><path d="M207,117 Q224,109 241,118" fill="none" stroke="#8B5E3C" stroke-width="2.8" stroke-linecap="round"/><path d="M195,153 Q200,159 205,153" fill="none" stroke="#c0896a" stroke-width="2" stroke-linecap="round"/><path d="M181,168 Q200,181 219,168" fill="none" stroke="#c0896a" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="157" cy="158" rx="13" ry="8" fill="#FFB3BA" opacity="0.55"/><ellipse cx="243" cy="158" rx="13" ry="8" fill="#FFB3BA" opacity="0.55"/>`,
     regions:[
       {id:'bg',    label:'하늘',     d:'M0,0 L400,0 L400,500 L0,500 Z', z:0},
