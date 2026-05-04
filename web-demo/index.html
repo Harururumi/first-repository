@@ -12,371 +12,262 @@
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-      user-select: none; -webkit-user-select: none;
-    }
-    html, body {
-      width: 100%; height: 100%; overflow: hidden;
-      font-family: -apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-      background: #fff;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; user-select:none; -webkit-user-select:none; }
+    html, body { width:100%; height:100%; overflow:hidden; font-family:-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif; background:#fff; }
 
-    /* ── SCREEN SYSTEM ── */
-    .screen {
-      position: fixed; inset: 0;
-      display: flex; flex-direction: column;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.3s ease;
-      overflow: hidden;
-    }
-    .screen.active { opacity: 1; pointer-events: all; }
+    /* ── SCREENS ── */
+    .screen { position:fixed; inset:0; display:flex; flex-direction:column; opacity:0; pointer-events:none; transition:opacity .3s; overflow:hidden; }
+    .screen.active { opacity:1; pointer-events:all; }
 
     /* ── SPLASH ── */
-    #splash {
-      background: linear-gradient(135deg,#FF6B6B,#FFA07A,#FFD700,#98FB98,#87CEEB,#DDA0DD);
-      background-size: 400% 400%;
-      animation: gradShift 5s ease infinite;
-      justify-content: center; align-items: center; gap: 28px;
-    }
-    @keyframes gradShift {
-      0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%}
-    }
-    .splash-star {
-      position: absolute; font-size: 28px;
-      animation: starBob var(--d,3s) var(--dl,0s) ease-in-out infinite;
-    }
-    @keyframes starBob {
-      0%,100%{transform:translateY(0) rotate(0deg);opacity:.6}
-      50%{transform:translateY(-25px) rotate(180deg);opacity:1}
-    }
-    .splash-title { text-align: center; animation: popIn .8s cubic-bezier(.36,.07,.19,.97) both; }
+    #splash { background:linear-gradient(135deg,#FF6B6B,#FFA07A,#FFD700,#98FB98,#87CEEB,#DDA0DD); background-size:400% 400%; animation:gradShift 5s ease infinite; justify-content:center; align-items:center; gap:26px; }
+    @keyframes gradShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    .sp-star { position:absolute; font-size:28px; animation:starBob var(--d,3s) var(--dl,0s) ease-in-out infinite; }
+    @keyframes starBob { 0%,100%{transform:translateY(0) rotate(0deg);opacity:.6} 50%{transform:translateY(-28px) rotate(180deg);opacity:1} }
+    .sp-title { text-align:center; animation:popIn .8s cubic-bezier(.36,.07,.19,.97) both; }
     @keyframes popIn { from{transform:scale(.1);opacity:0} to{transform:scale(1);opacity:1} }
-    .splash-title .t1 { display:block; font-size:38px; font-weight:900; color:#fff; text-shadow:2px 3px 8px rgba(0,0,0,.2); }
-    .splash-title .t2 { display:block; font-size:54px; font-weight:900; color:#fff; text-shadow:2px 3px 8px rgba(0,0,0,.2); animation:bounceY 1.6s ease-in-out infinite; }
+    .sp-title .t1 { display:block; font-size:38px; font-weight:900; color:#fff; text-shadow:2px 3px 8px rgba(0,0,0,.2); }
+    .sp-title .t2 { display:block; font-size:54px; font-weight:900; color:#fff; text-shadow:2px 3px 8px rgba(0,0,0,.2); animation:bounceY 1.6s ease-in-out infinite; }
     @keyframes bounceY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-    .splash-title .sub { display:block; font-size:15px; color:rgba(255,255,255,.85); font-weight:600; margin-top:6px; }
-    .splash-emojis { display:flex; gap:24px; font-size:50px; animation:fadeUp 1s .5s both; }
-    .splash-emojis span { animation:floatEm 2s ease-in-out infinite; }
-    .splash-emojis span:nth-child(2) { animation-delay:.3s; }
-    .splash-emojis span:nth-child(3) { animation-delay:.6s; }
+    .sp-title .sub { display:block; font-size:15px; color:rgba(255,255,255,.85); font-weight:600; margin-top:6px; }
+    .sp-emojis { display:flex; gap:24px; font-size:50px; animation:fadeUp 1s .5s both; }
+    .sp-emojis span { animation:floatEm 2s ease-in-out infinite; }
+    .sp-emojis span:nth-child(2){animation-delay:.3s} .sp-emojis span:nth-child(3){animation-delay:.6s}
     @keyframes floatEm { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
     @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-    .splash-btn {
-      padding:16px 48px; background:#fff; color:#FF6B6B;
-      border:none; border-radius:60px; font-size:22px; font-weight:900;
-      box-shadow:0 4px 20px rgba(0,0,0,.2); cursor:pointer;
-      animation:fadeUp 1s .8s both, pulse 2s 1.8s ease-in-out infinite;
-    }
+    .sp-btn { padding:16px 48px; background:#fff; color:#FF6B6B; border:none; border-radius:60px; font-size:22px; font-weight:900; box-shadow:0 4px 20px rgba(0,0,0,.2); cursor:pointer; animation:fadeUp 1s .8s both,pulse 2s 1.8s ease-in-out infinite; }
     @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.06)} }
 
     /* ── HOME ── */
-    #home {
-      background: linear-gradient(135deg,#E8D5FF,#C5E8FF);
-      padding-top: calc(var(--safe-top) + 16px);
-      padding-bottom: calc(var(--safe-bottom) + 8px);
-    }
-    .home-header {
-      display:flex; justify-content:space-between; align-items:center;
-      padding:0 20px 14px;
-    }
-    .home-header h1 { font-size:22px; font-weight:900; color:#5B2D8E; }
-    .home-header p  { font-size:12px; color:#5B2D8E; opacity:.7; }
-    .my-works-btn {
-      display:flex; flex-direction:column; align-items:center; gap:2px;
-      background:#FF6B9D; color:#fff; border:none; border-radius:18px;
-      padding:10px 14px; font-size:11px; font-weight:800; cursor:pointer;
-      min-width:60px; min-height:60px; justify-content:center;
-      box-shadow:0 3px 12px rgba(255,107,157,.4);
-    }
-    .my-works-btn span:first-child { font-size:22px; }
-    .char-grid {
-      display:grid; grid-template-columns:1fr 1fr; gap:14px;
-      padding:0 14px; overflow-y:auto; flex:1; padding-bottom:12px;
-    }
-    .char-card {
-      background:var(--cc); border-radius:22px; padding:12px;
-      box-shadow:0 4px 14px rgba(0,0,0,.1); cursor:pointer;
-      display:flex; flex-direction:column; align-items:center; gap:8px;
-      position:relative; transition:transform .15s;
-    }
+    #home { background:linear-gradient(135deg,#E8D5FF,#C5E8FF); padding-top:calc(var(--safe-top) + 14px); padding-bottom:calc(var(--safe-bottom) + 6px); }
+    .home-hdr { display:flex; justify-content:space-between; align-items:center; padding:0 18px 12px; }
+    .home-hdr h1 { font-size:21px; font-weight:900; color:#5B2D8E; }
+    .home-hdr p  { font-size:11px; color:#5B2D8E; opacity:.7; }
+    .works-btn { display:flex; flex-direction:column; align-items:center; gap:2px; background:#FF6B9D; color:#fff; border:none; border-radius:18px; padding:9px 13px; font-size:11px; font-weight:800; cursor:pointer; min-width:58px; min-height:58px; justify-content:center; box-shadow:0 3px 10px rgba(255,107,157,.4); }
+    .works-btn span:first-child { font-size:20px; }
+    .char-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:0 14px; overflow-y:auto; flex:1; padding-bottom:10px; }
+    .char-card { background:var(--cc); border-radius:22px; padding:12px; box-shadow:0 4px 14px rgba(0,0,0,.1); cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:7px; position:relative; transition:transform .15s; }
     .char-card:active { transform:scale(.94); }
     .char-preview { width:100%; aspect-ratio:4/5; border-radius:12px; overflow:hidden; background:rgba(255,255,255,.6); }
     .char-preview svg { width:100%; height:100%; display:block; }
-    .char-name-ko { font-size:16px; font-weight:900; color:#333; }
+    .char-name-ko { font-size:15px; font-weight:900; color:#333; }
     .char-name-en { font-size:10px; color:#666; font-weight:600; }
-    .char-stars    { font-size:13px; }
-    .done-badge {
-      position:absolute; top:9px; right:9px;
-      background:#FF6B6B; color:#fff; font-size:10px; font-weight:900;
-      padding:3px 8px; border-radius:20px;
-    }
+    .card-stars   { font-size:16px; min-height:20px; }
+    .done-badge   { position:absolute; top:8px; right:8px; background:#FF6B6B; color:#fff; font-size:10px; font-weight:900; padding:2px 7px; border-radius:20px; }
+    .lock-overlay { position:absolute; inset:0; background:rgba(0,0,0,.45); border-radius:22px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; }
+    .lock-overlay span:first-child { font-size:36px; }
+    .lock-overlay span:last-child  { font-size:12px; font-weight:800; color:#fff; text-align:center; padding:0 8px; }
 
     /* ── COLORING ── */
-    #coloring {
-      background:#FFFEF5;
-      padding-top: calc(var(--safe-top) + 0px);
-      padding-bottom: calc(var(--safe-bottom) + 0px);
-    }
-    .col-topbar {
-      display:flex; justify-content:space-between; align-items:center;
-      padding:10px 14px 6px; flex-shrink:0;
-    }
-    .icon-btn {
-      width:52px; height:52px; border:none; border-radius:50%; font-size:20px;
-      cursor:pointer; display:flex; align-items:center; justify-content:center;
-      box-shadow:0 2px 8px rgba(0,0,0,.2); flex-shrink:0;
-    }
-    .btn-home  { background:#FF6B6B; }
-    .btn-undo  { background:#9B59B6; }
-    .btn-undo:disabled { background:#ccc; cursor:default; }
-    .page-ttl  { display:flex; flex-direction:column; align-items:center; }
-    .page-ttl-ko { font-size:17px; font-weight:900; color:#5B2D8E; }
-    .page-ttl-en { font-size:11px; color:#888; font-weight:600; }
+    #coloring { background:#FFFEF5; padding-top:calc(var(--safe-top) + 0px); padding-bottom:calc(var(--safe-bottom) + 0px); }
+    .col-top { display:flex; justify-content:space-between; align-items:center; padding:8px 12px 4px; flex-shrink:0; }
+    .icon-btn { width:50px; height:50px; border:none; border-radius:50%; font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,.2); flex-shrink:0; }
+    .btn-home { background:#FF6B6B; } .btn-undo { background:#9B59B6; } .btn-undo:disabled { background:#ccc; cursor:default; }
+    .page-ttl { display:flex; flex-direction:column; align-items:center; }
+    .page-ttl-ko { font-size:16px; font-weight:900; color:#5B2D8E; }
+    .page-ttl-en { font-size:10px; color:#888; font-weight:600; }
 
-    .canvas-wrapper {
-      flex:1; display:flex; align-items:center; justify-content:center;
-      padding:0 10px; min-height:0;
-    }
-    .canvas-box {
-      position:relative; background:#fff;
-      border-radius:14px; box-shadow:0 4px 18px rgba(0,0,0,.15);
-      overflow:hidden;
-    }
-    #coloring-svg { display:block; width:100%; height:100%; }
-    #brush-canvas {
-      position:absolute; top:0; left:0; width:100%; height:100%;
-      touch-action:none;
-    }
+    /* background selector */
+    .bg-row { display:flex; gap:6px; padding:3px 12px 3px; flex-shrink:0; overflow-x:auto; scrollbar-width:none; }
+    .bg-row::-webkit-scrollbar { display:none; }
+    .bg-btn { width:38px; height:38px; border:2px solid rgba(0,0,0,.1); border-radius:10px; background:none; font-size:20px; cursor:pointer; flex-shrink:0; transition:all .15s; }
+    .bg-btn.sel { border-color:#5B2D8E; box-shadow:0 0 0 2px #5B2D8E; transform:scale(1.1); }
 
-    .progress-row {
-      display:flex; align-items:center; gap:8px;
-      padding:4px 16px; flex-shrink:0;
+    .canvas-wrapper { flex:1; display:flex; align-items:center; justify-content:center; padding:0 10px; min-height:0; }
+    .canvas-box { position:relative; background:#fff; border-radius:14px; box-shadow:0 4px 18px rgba(0,0,0,.15); overflow:hidden; transition:box-shadow .3s; }
+    .canvas-box.glow { animation:completionGlow 1s ease; }
+    @keyframes completionGlow {
+      0%  { box-shadow:0 0 0 4px #FF6B6B; }
+      25% { box-shadow:0 0 0 6px #FFD700; }
+      50% { box-shadow:0 0 0 6px #34C759; }
+      75% { box-shadow:0 0 0 6px #007AFF; }
+      100%{ box-shadow:0 4px 18px rgba(0,0,0,.15); }
     }
-    .prog-label { font-size:11px; color:#999; font-weight:700; white-space:nowrap; }
-    .prog-track { flex:1; height:10px; background:#eee; border-radius:6px; overflow:hidden; }
-    .prog-fill  { height:100%; width:0%; border-radius:6px; transition:width .4s;
-                  background:linear-gradient(to right,#FF6B6B,#FFD700); }
-    .prog-pct   { font-size:12px; font-weight:800; color:#FF6B6B; width:36px; text-align:right; }
+    #col-svg { display:block; width:100%; height:100%; }
+    #brush-canvas { position:absolute; top:0; left:0; width:100%; height:100%; touch-action:none; }
+    #stamp-layer  { position:absolute; inset:0; pointer-events:none; }
+    #sticker-layer{ position:absolute; inset:0; pointer-events:none; }
 
-    .palette-row {
-      display:flex; overflow-x:auto; gap:8px;
-      padding:6px 10px; flex-shrink:0; scrollbar-width:none;
-      background:rgba(255,255,255,.9); border-radius:14px; margin:0 8px;
-      box-shadow:0 2px 8px rgba(0,0,0,.08);
-    }
+    /* sticker/stamp items */
+    .placed-item { position:absolute; font-size:36px; transform:translate(-50%,-50%); cursor:grab; pointer-events:all; line-height:1; touch-action:none; transition:transform .1s; }
+    .placed-item:active { transform:translate(-50%,-50%) scale(1.2); }
+
+    /* sparkle */
+    .spark { position:absolute; pointer-events:none; font-size:20px; animation:sparkAnim .7s ease forwards; }
+    @keyframes sparkAnim { 0%{opacity:1;transform:translate(-50%,-50%) scale(1)} 100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(0)} }
+
+    /* reaction bubble */
+    .reaction { position:absolute; background:#fff; border-radius:20px; padding:5px 12px; font-size:16px; font-weight:900; color:#5B2D8E; box-shadow:0 3px 12px rgba(0,0,0,.2); pointer-events:none; white-space:nowrap; animation:reactionPop .3s ease,reactionFade .4s 1.2s ease forwards; }
+    @keyframes reactionPop  { from{transform:scale(.4);opacity:0} to{transform:scale(1);opacity:1} }
+    @keyframes reactionFade { from{opacity:1} to{opacity:0} }
+
+    /* progress */
+    .prog-row { display:flex; align-items:center; gap:7px; padding:3px 14px; flex-shrink:0; }
+    .prog-lbl  { font-size:11px; color:#999; font-weight:700; white-space:nowrap; }
+    .prog-track{ flex:1; height:9px; background:#eee; border-radius:6px; overflow:hidden; }
+    .prog-fill { height:100%; width:0%; border-radius:6px; transition:width .4s; background:linear-gradient(to right,#FF6B6B,#FFD700); }
+    .prog-pct  { font-size:11px; font-weight:800; color:#FF6B6B; width:34px; text-align:right; }
+
+    /* palette */
+    .palette-row { display:flex; overflow-x:auto; gap:8px; padding:5px 10px; flex-shrink:0; scrollbar-width:none; background:rgba(255,255,255,.9); border-radius:14px; margin:0 8px; box-shadow:0 2px 8px rgba(0,0,0,.08); }
     .palette-row::-webkit-scrollbar { display:none; }
-    .swatch {
-      width:42px; height:42px; border-radius:50%; flex-shrink:0; cursor:pointer;
-      border:2px solid rgba(0,0,0,.1); transition:transform .15s;
-      display:flex; align-items:center; justify-content:center;
-    }
+    .swatch { width:40px; height:40px; border-radius:50%; flex-shrink:0; cursor:pointer; border:2px solid rgba(0,0,0,.1); transition:transform .15s; display:flex; align-items:center; justify-content:center; }
     .swatch:active { transform:scale(.88); }
-    .swatch.sel {
-      border:3px solid #fff; box-shadow:0 0 0 2.5px rgba(0,0,0,.3);
-      transform:scale(1.18);
-    }
-    .swatch.sel::after { content:'✓'; color:#fff; font-size:15px; font-weight:900; text-shadow:0 1px 3px rgba(0,0,0,.5); }
+    .swatch.sel { border:3px solid #fff; box-shadow:0 0 0 2.5px rgba(0,0,0,.3); transform:scale(1.18); }
+    .swatch.sel::after { content:'✓'; color:#fff; font-size:14px; font-weight:900; text-shadow:0 1px 3px rgba(0,0,0,.5); }
 
-    .toolbar {
-      display:flex; align-items:center; gap:8px;
-      padding:6px 14px calc(var(--safe-bottom) + 6px); flex-shrink:0;
-    }
-    .tool-btn {
-      display:flex; flex-direction:column; align-items:center; gap:3px;
-      width:58px; padding:9px 0; border:none; border-radius:14px;
-      background:rgba(0,0,0,.05); cursor:pointer; transition:all .15s;
-    }
-    .tool-btn .ti { font-size:22px; }
-    .tool-btn .tl { font-size:10px; font-weight:800; color:#666; }
+    /* toolbar */
+    .toolbar { display:flex; align-items:stretch; gap:5px; padding:5px 10px calc(var(--safe-bottom) + 5px); flex-shrink:0; }
+    .tool-btn { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; flex:1; padding:7px 0; border:none; border-radius:12px; background:rgba(0,0,0,.05); cursor:pointer; transition:all .15s; min-height:54px; }
+    .tool-btn .ti { font-size:20px; }
+    .tool-btn .tl { font-size:9px; font-weight:800; color:#666; }
     .tool-btn.on  { background:var(--tc); box-shadow:0 2px 8px rgba(0,0,0,.2); }
     .tool-btn.on .tl { color:#fff; }
-    .save-btn {
-      flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
-      padding:14px; background:#FF2D55; color:#fff; border:none; border-radius:50px;
-      font-size:15px; font-weight:900; cursor:pointer;
-      box-shadow:0 3px 12px rgba(255,45,85,.4);
-    }
+    .save-wide { display:flex; align-items:center; justify-content:center; gap:5px; padding:0 14px; background:#FF2D55; color:#fff; border:none; border-radius:12px; font-size:14px; font-weight:900; cursor:pointer; box-shadow:0 3px 10px rgba(255,45,85,.4); min-height:54px; flex-shrink:0; }
+
+    /* sticker/stamp panel */
+    .item-panel { display:none; overflow-x:auto; gap:8px; padding:6px 10px; flex-shrink:0; scrollbar-width:none; background:rgba(255,255,255,.95); border-radius:14px; margin:0 8px 4px; box-shadow:0 2px 8px rgba(0,0,0,.1); }
+    .item-panel::-webkit-scrollbar { display:none; }
+    .item-panel.show { display:flex; }
+    .item-opt { font-size:30px; cursor:pointer; flex-shrink:0; padding:3px; border-radius:8px; transition:transform .15s; }
+    .item-opt:active { transform:scale(.85); }
+    .item-opt.sel { background:rgba(91,45,142,.15); }
 
     /* ── GALLERY ── */
-    #gallery {
-      background:linear-gradient(135deg,#C5E8FF,#E8D5FF);
-      padding-top: calc(var(--safe-top) + 16px);
-      padding-bottom: calc(var(--safe-bottom) + 8px);
-    }
-    .gallery-header {
-      display:flex; align-items:center; gap:12px; padding:0 18px 14px;
-    }
-    .back-btn {
-      width:52px; height:52px; border:none; border-radius:50%;
-      background:#FF6B6B; color:#fff; font-size:20px; cursor:pointer;
-      box-shadow:0 2px 8px rgba(0,0,0,.2); flex-shrink:0;
-    }
-    .gallery-header h2 { font-size:24px; font-weight:900; color:#5B2D8E; }
-    .gallery-header p  { font-size:12px; color:#5B2D8E; opacity:.7; }
-    .art-grid {
-      display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;
-      padding:0 12px; overflow-y:auto; flex:1; padding-bottom:12px;
-    }
-    .art-item {
-      background:#fff; border-radius:14px; padding:8px;
-      box-shadow:0 2px 8px rgba(0,0,0,.1); position:relative;
-    }
+    #gallery { background:linear-gradient(135deg,#C5E8FF,#E8D5FF); padding-top:calc(var(--safe-top) + 14px); padding-bottom:calc(var(--safe-bottom) + 6px); }
+    .gal-hdr { display:flex; align-items:center; gap:10px; padding:0 16px 12px; }
+    .back-btn { width:50px; height:50px; border:none; border-radius:50%; background:#FF6B6B; color:#fff; font-size:20px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.2); flex-shrink:0; }
+    .gal-hdr h2 { font-size:22px; font-weight:900; color:#5B2D8E; }
+    .gal-hdr p  { font-size:11px; color:#5B2D8E; opacity:.7; }
+    .art-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; padding:0 12px; overflow-y:auto; flex:1; padding-bottom:10px; }
+    .art-item { background:#fff; border-radius:14px; padding:7px; box-shadow:0 2px 8px rgba(0,0,0,.1); position:relative; }
     .art-item img { width:100%; aspect-ratio:4/5; border-radius:8px; object-fit:cover; display:block; }
-    .art-name { font-size:10px; font-weight:800; color:#333; text-align:center; margin-top:4px; }
+    .art-name { font-size:10px; font-weight:800; color:#333; text-align:center; margin-top:3px; }
     .art-date { font-size:9px; color:#888; text-align:center; }
-    .del-btn {
-      position:absolute; top:-5px; right:-5px; width:22px; height:22px;
-      background:#FF3B30; color:#fff; border:none; border-radius:50%;
-      font-size:13px; cursor:pointer; display:flex; align-items:center; justify-content:center;
-    }
-    .empty-state {
-      flex:1; display:flex; flex-direction:column; align-items:center;
-      justify-content:center; gap:14px; color:#5B2D8E;
-    }
-    .empty-state .ei { font-size:80px; }
-    .empty-state h3  { font-size:20px; font-weight:900; }
-    .empty-state p   { font-size:14px; opacity:.7; }
+    .del-btn  { position:absolute; top:-5px; right:-5px; width:22px; height:22px; background:#FF3B30; color:#fff; border:none; border-radius:50%; font-size:13px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+    .empty-state { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; color:#5B2D8E; }
+    .empty-state .ei { font-size:76px; } .empty-state h3 { font-size:20px; font-weight:900; } .empty-state p { font-size:14px; opacity:.7; }
 
-    /* ── CELEBRATION OVERLAY ── */
-    #celebrate {
-      position:fixed; inset:0; background:rgba(0,0,0,.5);
-      display:none; flex-direction:column; align-items:center; justify-content:center;
-      z-index:200;
-    }
+    /* ── CELEBRATION ── */
+    #celebrate { position:fixed; inset:0; background:rgba(0,0,0,.52); display:none; flex-direction:column; align-items:center; justify-content:center; z-index:200; }
     #celebrate.show { display:flex; }
-    .cel-card {
-      background:linear-gradient(135deg,#7B2FF7,#F107A3);
-      border-radius:28px; padding:32px 24px; margin:24px;
-      text-align:center; box-shadow:0 10px 40px rgba(0,0,0,.3);
-      animation:popIn .5s cubic-bezier(.36,.07,.19,.97);
-    }
-    .cel-card .big { font-size:70px; display:block; margin-bottom:14px; }
-    .cel-card h2   { font-size:42px; font-weight:900; color:#FFD700; text-shadow:0 0 20px rgba(255,215,0,.5); }
-    .cel-card .cp  { font-size:17px; color:#fff; font-weight:700; margin:6px 0; }
-    .cel-card .cs  { font-size:14px; color:rgba(255,255,255,.8); margin-bottom:22px; }
+    .cel-card { background:linear-gradient(135deg,#7B2FF7,#F107A3); border-radius:28px; padding:30px 24px; margin:20px; text-align:center; box-shadow:0 10px 40px rgba(0,0,0,.3); animation:popIn .5s cubic-bezier(.36,.07,.19,.97); max-width:340px; width:100%; }
+    .cel-card .big { font-size:68px; display:block; margin-bottom:12px; }
+    .cel-card h2   { font-size:40px; font-weight:900; color:#FFD700; text-shadow:0 0 20px rgba(255,215,0,.5); }
+    .cel-card .cp  { font-size:16px; color:#fff; font-weight:700; margin:6px 0 2px; }
+    .cel-card .cstar { font-size:28px; margin:6px 0 16px; display:block; }
     .cel-btns { display:flex; flex-direction:column; gap:10px; }
-    .cel-btns button { padding:13px 24px; border:none; border-radius:50px; font-size:15px; font-weight:900; cursor:pointer; }
-    .btn-cont { background:#fff; color:#FF6B6B; }
-    .btn-save { background:#34C759; color:#fff; }
+    .cel-btns button { padding:13px 22px; border:none; border-radius:50px; font-size:14px; font-weight:900; cursor:pointer; }
+    .btn-cont { background:#fff; color:#FF6B6B; } .btn-save { background:#34C759; color:#fff; }
 
-    .confetti-p {
-      position:fixed; top:-20px; pointer-events:none;
-      animation:cFall var(--d) var(--dl) ease-in both;
-    }
-    @keyframes cFall {
-      0%{transform:translateY(0) rotate(0deg);opacity:1}
-      100%{transform:translateY(110vh) translateX(var(--dx)) rotate(720deg);opacity:0}
-    }
+    /* ── UNLOCK POPUP ── */
+    #unlock-popup { position:fixed; bottom:calc(var(--safe-bottom) + 20px); left:50%; transform:translateX(-50%) translateY(100px); background:linear-gradient(135deg,#FFD700,#FF9500); padding:14px 28px; border-radius:50px; display:flex; align-items:center; gap:10px; box-shadow:0 6px 24px rgba(0,0,0,.25); z-index:300; transition:transform .4s cubic-bezier(.36,.07,.19,.97); white-space:nowrap; }
+    #unlock-popup.show { transform:translateX(-50%) translateY(0); }
+    #unlock-popup span { font-size:22px; } #unlock-popup p { font-size:14px; font-weight:900; color:#fff; }
 
-    /* ── TOAST ── */
-    .toast {
-      position:fixed; bottom:calc(var(--safe-bottom) + 90px); left:50%;
-      transform:translateX(-50%) translateY(16px);
-      background:#34C759; color:#fff; padding:11px 24px; border-radius:50px;
-      font-size:14px; font-weight:800; box-shadow:0 4px 16px rgba(0,0,0,.2);
-      opacity:0; transition:all .3s ease; z-index:300; white-space:nowrap;
-    }
+    /* confetti */
+    .confetti-p { position:fixed; top:-20px; pointer-events:none; animation:cFall var(--d) var(--dl) ease-in both; }
+    @keyframes cFall { 0%{transform:translateY(0) rotate(0deg);opacity:1} 100%{transform:translateY(110vh) translateX(var(--dx)) rotate(720deg);opacity:0} }
+
+    /* toast */
+    .toast { position:fixed; bottom:calc(var(--safe-bottom) + 90px); left:50%; transform:translateX(-50%) translateY(16px); background:#34C759; color:#fff; padding:11px 22px; border-radius:50px; font-size:14px; font-weight:800; box-shadow:0 4px 16px rgba(0,0,0,.2); opacity:0; transition:all .3s; z-index:300; white-space:nowrap; }
     .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
 
-<!-- ═══════════ SPLASH ═══════════ -->
+<!-- ═══ SPLASH ═══ -->
 <div id="splash" class="screen active">
-  <div class="splash-star" style="left:8%;top:12%;--d:3s;--dl:0s">⭐</div>
-  <div class="splash-star" style="left:82%;top:18%;--d:2.5s;--dl:.4s">✨</div>
-  <div class="splash-star" style="left:15%;top:78%;--d:3.5s;--dl:.2s">💫</div>
-  <div class="splash-star" style="left:72%;top:72%;--d:2.8s;--dl:.7s">⭐</div>
-  <div class="splash-star" style="left:50%;top:8%;--d:3.2s;--dl:.3s">✨</div>
-  <div class="splash-star" style="left:4%;top:48%;--d:2.6s;--dl:1s">💫</div>
-  <div class="splash-star" style="left:88%;top:52%;--d:3s;--dl:.6s">⭐</div>
-  <div class="splash-title">
-    <span class="t1">마법의</span>
-    <span class="t2">색칠나라</span>
+  <div class="sp-star" style="left:8%;top:12%;--d:3s;--dl:0s">⭐</div>
+  <div class="sp-star" style="left:82%;top:18%;--d:2.5s;--dl:.4s">✨</div>
+  <div class="sp-star" style="left:15%;top:78%;--d:3.5s;--dl:.2s">💫</div>
+  <div class="sp-star" style="left:72%;top:72%;--d:2.8s;--dl:.7s">⭐</div>
+  <div class="sp-star" style="left:50%;top:8%;--d:3.2s;--dl:.3s">✨</div>
+  <div class="sp-star" style="left:4%;top:48%;--d:2.6s;--dl:1s">💫</div>
+  <div class="sp-star" style="left:88%;top:52%;--d:3s;--dl:.6s">⭐</div>
+  <div class="sp-title">
+    <span class="t1">마법의</span><span class="t2">색칠나라</span>
     <span class="sub">Magic Coloring Kingdom</span>
   </div>
-  <div class="splash-emojis"><span>👑</span><span>🎨</span><span>✨</span></div>
-  <button class="splash-btn" onclick="goHome()">시작하기! 🌟</button>
+  <div class="sp-emojis"><span>👑</span><span>🎨</span><span>✨</span></div>
+  <button class="sp-btn" onclick="goHome()">시작하기! 🌟</button>
 </div>
 
-<!-- ═══════════ HOME ═══════════ -->
+<!-- ═══ HOME ═══ -->
 <div id="home" class="screen">
-  <div class="home-header">
-    <div>
-      <h1>무엇을 색칠할까요?</h1>
-      <p>What shall we color?</p>
-    </div>
-    <button class="my-works-btn" onclick="goGallery()">
-      <span>💝</span><span>내 작품</span>
-    </button>
+  <div class="home-hdr">
+    <div><h1>무엇을 색칠할까요?</h1><p>What shall we color?</p></div>
+    <button class="works-btn" onclick="goGallery()"><span>💝</span><span>내 작품</span></button>
   </div>
   <div class="char-grid" id="char-grid"></div>
 </div>
 
-<!-- ═══════════ COLORING ═══════════ -->
+<!-- ═══ COLORING ═══ -->
 <div id="coloring" class="screen">
-  <div class="col-topbar">
+  <div class="col-top">
     <button class="icon-btn btn-home" onclick="goHome()">🏠</button>
     <div class="page-ttl">
-      <span class="page-ttl-ko" id="ttl-ko">귀여운 공주</span>
-      <span class="page-ttl-en" id="ttl-en">Sweet Princess</span>
+      <span class="page-ttl-ko" id="ttl-ko"></span>
+      <span class="page-ttl-en" id="ttl-en"></span>
     </div>
     <button class="icon-btn btn-undo" id="undo-btn" onclick="undo()" disabled>↩️</button>
   </div>
 
+  <!-- background selector -->
+  <div class="bg-row" id="bg-row"></div>
+
   <div class="canvas-wrapper" id="canvas-wrapper">
     <div class="canvas-box" id="canvas-box">
       <svg id="col-svg" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+        <defs id="svg-defs"></defs>
         <g id="fill-layer"></g>
         <g id="outline-layer" style="pointer-events:none"></g>
       </svg>
       <canvas id="brush-canvas"></canvas>
+      <div id="stamp-layer"></div>
+      <div id="sticker-layer"></div>
     </div>
   </div>
 
-  <div class="progress-row">
-    <span class="prog-label">색칠 완성도</span>
+  <div class="prog-row">
+    <span class="prog-lbl">색칠 완성도</span>
     <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
     <span class="prog-pct" id="prog-pct">0%</span>
   </div>
 
+  <!-- sticker panel -->
+  <div class="item-panel" id="sticker-panel"></div>
+  <!-- stamp panel -->
+  <div class="item-panel" id="stamp-panel"></div>
+
   <div class="palette-row" id="palette"></div>
 
   <div class="toolbar">
-    <button class="tool-btn on" id="btn-bucket" style="--tc:#34C759" onclick="setTool('bucket')">
-      <span class="ti">🪣</span><span class="tl">채우기</span>
-    </button>
-    <button class="tool-btn" id="btn-brush" style="--tc:#007AFF" onclick="setTool('brush')">
-      <span class="ti">🖌️</span><span class="tl">붓</span>
-    </button>
-    <button class="tool-btn" id="btn-eraser" style="--tc:#8E8E93" onclick="setTool('eraser')">
-      <span class="ti">🧹</span><span class="tl">지우개</span>
-    </button>
-    <button class="save-btn" onclick="saveArtwork()">💾 저장하기</button>
+    <button class="tool-btn on" id="btn-bucket"  style="--tc:#34C759" onclick="setTool('bucket')"><span class="ti">🪣</span><span class="tl">채우기</span></button>
+    <button class="tool-btn"    id="btn-brush"   style="--tc:#007AFF" onclick="setTool('brush')"><span class="ti">🖌️</span><span class="tl">붓</span></button>
+    <button class="tool-btn"    id="btn-eraser"  style="--tc:#8E8E93" onclick="setTool('eraser')"><span class="ti">🧹</span><span class="tl">지우개</span></button>
+    <button class="tool-btn"    id="btn-stamp"   style="--tc:#FF9500" onclick="setTool('stamp')"><span class="ti">💠</span><span class="tl">도장</span></button>
+    <button class="tool-btn"    id="btn-sticker" style="--tc:#AF52DE" onclick="setTool('sticker')"><span class="ti">🎀</span><span class="tl">스티커</span></button>
+    <button class="save-wide" onclick="saveArtwork()">💾 저장</button>
   </div>
 </div>
 
-<!-- ═══════════ GALLERY ═══════════ -->
+<!-- ═══ GALLERY ═══ -->
 <div id="gallery" class="screen">
-  <div class="gallery-header">
+  <div class="gal-hdr">
     <button class="back-btn" onclick="goHome()">◀</button>
-    <div>
-      <h2>내 작품 💝</h2>
-      <p>My Creations</p>
-    </div>
+    <div><h2>내 작품 💝</h2><p>My Creations</p></div>
   </div>
   <div id="gallery-body" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;"></div>
 </div>
 
-<!-- ═══════════ CELEBRATION ═══════════ -->
+<!-- ═══ CELEBRATION ═══ -->
 <div id="celebrate">
   <div class="cel-card">
     <span class="big">🎉</span>
     <h2>훌륭해요!</h2>
     <p class="cp">Wonderful job!</p>
-    <p class="cs">그림을 완성했어요! ⭐</p>
+    <span class="cstar" id="cel-stars"></span>
     <div class="cel-btns">
       <button class="btn-cont" onclick="hideCelebrate()">계속 색칠하기</button>
       <button class="btn-save" onclick="saveAndExit()">저장하고 나가기 💾</button>
@@ -384,436 +275,726 @@
   </div>
 </div>
 
+<!-- ═══ UNLOCK POPUP ═══ -->
+<div id="unlock-popup"><span>🔓</span><p id="unlock-msg">요정이 해제되었어요!</p></div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-// ══════════════════════════════════════════════
-// CHARACTER DATA  (SVG path d-strings)
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════════════════════
+const STICKERS = ['⭐','💎','🌸','🎀','🦋','🌈','💫','🍭','🎠','🌺','🎵','💖','🌟','🍀','🎊','🦄','🍓','🌻','💐','🎈','🍦','🌙','❤️','🎁','🔮','🍬','🌷','💝','🏅','✨'];
+const STAMPS   = ['🌸','💖','⭐','🌈','🦋','🎵','🍀','🏵️','🌺','💫','🎀','💎','🌟','🍭','🎊'];
+const PALETTE  = ['#FF3B30','#FF9500','#FFCC00','#34C759','#007AFF','#AF52DE','#FF2D55','#FF6B9D','#5AC8FA','#4CD964','#8B4513','#FFDAB9','#FFFFFF','#AAAAAA','#555555','#000000'];
+const COLOR_NAMES = {
+  '#FF3B30':'빨강이에요','#FF9500':'주황이에요','#FFCC00':'노랑이에요','#34C759':'초록이에요',
+  '#007AFF':'파랑이에요','#AF52DE':'보라이에요','#FF2D55':'분홍이에요','#FF6B9D':'핑크예요',
+  '#5AC8FA':'하늘색이에요','#4CD964':'연두색이에요','#8B4513':'갈색이에요','#FFDAB9':'살구색이에요',
+  '#FFFFFF':'흰색이에요','#AAAAAA':'회색이에요','#555555':'짙은 회색이에요','#000000':'검정이에요'
+};
+const REACTIONS = ['와!','예뻐요!','최고야!','반짝반짝!','신난다!','우와~!','멋져요!'];
+const BACKGROUNDS = [
+  { id:'sky',    emoji:'☀️', label:'맑은 하늘', stops:['#87CEEB','#E0F7FF'] },
+  { id:'night',  emoji:'🌙', label:'별밤',      stops:['#1a1a4e','#4B0082'] },
+  { id:'rainbow',emoji:'🌈', label:'무지개',    stops:['#FFB3BA','#FFDFBA','#FFFFBA','#BAFFC9','#BAE1FF'] },
+  { id:'castle', emoji:'🏰', label:'성',        stops:['#DDA0DD','#9370DB'] },
+  { id:'garden', emoji:'🌸', label:'꽃밭',      stops:['#FFE4E1','#FFC0CB'] },
+  { id:'ocean',  emoji:'🌊', label:'바다',      stops:['#006994','#40E0D0'] },
+];
+
+// ═══════════════════════════════════════════════════
+// CHARACTERS
+// ═══════════════════════════════════════════════════
 const CHARS = [
   {
-    id:'princess', nameKo:'귀여운 공주', nameEn:'Sweet Princess',
-    difficulty:1, cc:'#FFB3BA',
+    id:'princess', nameKo:'귀여운 공주', nameEn:'Sweet Princess', difficulty:1, cc:'#FFB3BA',
+    unlockReq: null,
+    unlocks: 'fairy',
+    headPos: {xpct:.5, ypct:.2},
     prev:{bg:'#87CEEB',ground:'#90EE90',skirt:'#FFB6C1',bodice:'#FF69B4',face:'#FFDAB9',hair:'#DAA520',crown:'#FFD700',wand:'#C0C0C0'},
     regions:[
-      {id:'bg',    label:'하늘',      d:'M0,0 L400,0 L400,500 L0,500 Z',                                                      z:0},
-      {id:'ground',label:'바닥',      d:'M0,440 C100,430 300,430 400,440 L400,500 L0,500 Z',                                   z:1},
-      {id:'skirt', label:'치마',      d:'M80,300 C60,340 40,400 30,470 L370,470 C360,400 340,340 320,300 C280,280 200,270 200,270 C200,270 120,280 80,300 Z', z:2},
-      {id:'bodice',label:'드레스',    d:'M130,200 C120,220 100,260 95,300 C130,290 200,285 200,285 C200,285 270,290 305,300 C300,260 280,220 270,200 C240,185 200,180 200,180 C200,180 160,185 130,200 Z', z:3},
-      {id:'face',  label:'얼굴',      d:'M200,80 C155,80 135,110 140,145 C145,175 170,195 200,195 C230,195 255,175 260,145 C265,110 245,80 200,80 Z', z:4},
-      {id:'hair',  label:'머리카락',  d:'M200,60 C155,55 125,75 125,110 C125,125 130,140 140,150 C145,110 165,88 200,85 C235,88 255,110 260,150 C270,140 275,125 275,110 C275,75 245,55 200,60 Z', z:5},
-      {id:'crown', label:'왕관',      d:'M160,68 L165,45 L175,60 L200,42 L225,60 L235,45 L240,68 C220,65 180,65 160,68 Z',    z:6},
-      {id:'wand',  label:'마법봉',    d:'M295,165 C302,158 314,158 321,165 C328,172 328,184 321,191 C314,198 302,198 295,191 C288,184 288,172 295,165 Z M306,191 L310,300 L314,300 L318,191 Z', z:7},
+      {id:'bg',    label:'하늘',     d:'M0,0 L400,0 L400,500 L0,500 Z', z:0},
+      {id:'ground',label:'바닥',     d:'M0,440 C100,430 300,430 400,440 L400,500 L0,500 Z', z:1},
+      {id:'skirt', label:'치마',     d:'M80,300 C60,340 40,400 30,470 L370,470 C360,400 340,340 320,300 C280,280 200,270 200,270 C200,270 120,280 80,300 Z', z:2},
+      {id:'bodice',label:'드레스',   d:'M130,200 C120,220 100,260 95,300 C130,290 200,285 200,285 C200,285 270,290 305,300 C300,260 280,220 270,200 C240,185 200,180 200,180 C200,180 160,185 130,200 Z', z:3},
+      {id:'face',  label:'얼굴',     d:'M200,80 C155,80 135,110 140,145 C145,175 170,195 200,195 C230,195 255,175 260,145 C265,110 245,80 200,80 Z', z:4},
+      {id:'hair',  label:'머리카락', d:'M200,60 C155,55 125,75 125,110 C125,125 130,140 140,150 C145,110 165,88 200,85 C235,88 255,110 260,150 C270,140 275,125 275,110 C275,75 245,55 200,60 Z', z:5},
+      {id:'crown', label:'왕관',     d:'M160,68 L165,45 L175,60 L200,42 L225,60 L235,45 L240,68 C220,65 180,65 160,68 Z', z:6},
+      {id:'wand',  label:'마법봉',   d:'M295,165 C302,158 314,158 321,165 C328,172 328,184 321,191 C314,198 302,198 295,191 C288,184 288,172 295,165 Z M306,191 L310,300 L314,300 L318,191 Z', z:7},
     ]
   },
   {
-    id:'prince', nameKo:'용감한 왕자', nameEn:'Brave Prince',
-    difficulty:2, cc:'#BAFFC9',
+    id:'prince', nameKo:'용감한 왕자', nameEn:'Brave Prince', difficulty:2, cc:'#BAFFC9',
+    unlockReq: null,
+    unlocks: null,
+    headPos: {xpct:.5, ypct:.18},
     prev:{bg:'#87CEEB',ground:'#90EE90',cape:'#DC143C',boots:'#8B4513',pants:'#4169E1',tunic:'#1E90FF',face:'#FFDAB9',hair:'#DAA520',crown:'#FFD700',sword:'#C0C0C0'},
     regions:[
-      {id:'bg',    label:'하늘',   d:'M0,0 L400,0 L400,500 L0,500 Z',                                                          z:0},
-      {id:'ground',label:'바닥',   d:'M0,440 C100,430 300,430 400,440 L400,500 L0,500 Z',                                       z:1},
-      {id:'cape',  label:'망토',   d:'M135,200 C115,230 105,280 100,350 C120,360 140,350 145,330 L150,290 C145,260 140,230 140,210 Z', z:2},
-      {id:'boots', label:'장화',   d:'M145,390 L145,440 L185,440 L185,390 Z M215,390 L215,440 L255,440 L255,390 Z',             z:3},
-      {id:'pants', label:'바지',   d:'M140,290 L140,400 L195,400 L200,330 L205,400 L260,400 L260,290 Z',                        z:4},
-      {id:'tunic', label:'갑옷',   d:'M135,200 C125,230 125,270 130,300 L270,300 C275,270 275,230 265,200 C240,185 200,180 200,180 C200,180 160,185 135,200 Z', z:5},
-      {id:'face',  label:'얼굴',   d:'M200,82 C158,82 138,112 143,148 C148,178 172,198 200,198 C228,198 252,178 257,148 C262,112 242,82 200,82 Z', z:6},
-      {id:'hair',  label:'머리',   d:'M200,62 C158,57 128,80 130,115 C132,130 138,145 145,152 C148,112 168,90 200,87 C232,90 252,112 255,152 C262,145 268,130 270,115 C272,80 242,57 200,62 Z', z:7},
-      {id:'crown', label:'왕관',   d:'M163,70 L168,48 L178,63 L200,45 L222,63 L232,48 L237,70 C218,67 182,67 163,70 Z',        z:8},
-      {id:'sword', label:'검',     d:'M270,200 L278,192 L340,130 L348,138 L286,208 Z M265,215 L295,185 L302,192 L272,222 Z',   z:9},
+      {id:'bg',    label:'하늘',  d:'M0,0 L400,0 L400,500 L0,500 Z', z:0},
+      {id:'ground',label:'바닥',  d:'M0,440 C100,430 300,430 400,440 L400,500 L0,500 Z', z:1},
+      {id:'cape',  label:'망토',  d:'M135,200 C115,230 105,280 100,350 C120,360 140,350 145,330 L150,290 C145,260 140,230 140,210 Z', z:2},
+      {id:'boots', label:'장화',  d:'M145,390 L145,440 L185,440 L185,390 Z M215,390 L215,440 L255,440 L255,390 Z', z:3},
+      {id:'pants', label:'바지',  d:'M140,290 L140,400 L195,400 L200,330 L205,400 L260,400 L260,290 Z', z:4},
+      {id:'tunic', label:'갑옷',  d:'M135,200 C125,230 125,270 130,300 L270,300 C275,270 275,230 265,200 C240,185 200,180 200,180 C200,180 160,185 135,200 Z', z:5},
+      {id:'face',  label:'얼굴',  d:'M200,82 C158,82 138,112 143,148 C148,178 172,198 200,198 C228,198 252,178 257,148 C262,112 242,82 200,82 Z', z:6},
+      {id:'hair',  label:'머리',  d:'M200,62 C158,57 128,80 130,115 C132,130 138,145 145,152 C148,112 168,90 200,87 C232,90 252,112 255,152 C262,145 268,130 270,115 C272,80 242,57 200,62 Z', z:7},
+      {id:'crown', label:'왕관',  d:'M163,70 L168,48 L178,63 L200,45 L222,63 L232,48 L237,70 C218,67 182,67 163,70 Z', z:8},
+      {id:'sword', label:'검',    d:'M270,200 L278,192 L340,130 L348,138 L286,208 Z M265,215 L295,185 L302,192 L272,222 Z', z:9},
     ]
   },
   {
-    id:'fairy', nameKo:'반짝이 요정', nameEn:'Sparkle Fairy',
-    difficulty:1, cc:'#FFFFBA',
+    id:'fairy', nameKo:'반짝이 요정', nameEn:'Sparkle Fairy', difficulty:1, cc:'#FFFFBA',
+    unlockReq: ['princess','prince'],
+    unlocks: 'villain',
+    headPos: {xpct:.5, ypct:.19},
     prev:{bg:'#FFE4E1',ground:'#90EE90',wl:'rgba(180,240,255,.7)',wr:'rgba(180,240,255,.7)',dress:'#98FB98',face:'#FFDAB9',hair:'#FFD700',wand:'#FF69B4'},
     regions:[
-      {id:'bg',    label:'하늘',       d:'M0,0 L400,0 L400,500 L0,500 Z',                                                       z:0},
-      {id:'ground',label:'풀밭',       d:'M0,430 C100,415 300,415 400,430 L400,500 L0,500 Z',                                    z:1},
-      {id:'wl',    label:'왼쪽 날개',  d:'M175,210 C140,190 80,160 60,200 C45,235 80,280 130,270 C155,265 170,245 175,230 Z',   z:2},
-      {id:'wr',    label:'오른쪽 날개',d:'M225,210 C260,190 320,160 340,200 C355,235 320,280 270,270 C245,265 230,245 225,230 Z',z:2},
-      {id:'dress', label:'드레스',     d:'M155,215 C140,250 135,310 120,380 C150,390 200,385 200,385 C200,385 250,390 280,380 C265,310 260,250 245,215 C225,200 200,196 200,196 C200,196 175,200 155,215 Z', z:3},
-      {id:'face',  label:'얼굴',       d:'M200,85 C160,85 140,112 145,147 C150,177 174,197 200,197 C226,197 250,177 255,147 C260,112 240,85 200,85 Z', z:4},
-      {id:'hair',  label:'머리카락',   d:'M200,65 C155,60 122,82 127,120 C130,137 138,150 147,157 C150,115 170,92 200,88 C230,92 250,115 253,157 C262,150 270,137 273,120 C278,82 245,60 200,65 Z', z:5},
-      {id:'wand',  label:'꽃 지팡이',  d:'M308,168 C310,148 322,140 328,152 C334,164 326,178 320,178 C326,182 334,196 328,208 C322,220 310,212 308,192 C304,212 292,220 286,208 C280,196 288,182 294,178 C288,178 280,164 286,152 C292,140 304,148 308,168 Z M306,190 L310,370 L314,370 L318,190 Z', z:6},
+      {id:'bg',   label:'하늘',       d:'M0,0 L400,0 L400,500 L0,500 Z', z:0},
+      {id:'ground',label:'풀밭',      d:'M0,430 C100,415 300,415 400,430 L400,500 L0,500 Z', z:1},
+      {id:'wl',   label:'왼쪽 날개',  d:'M175,210 C140,190 80,160 60,200 C45,235 80,280 130,270 C155,265 170,245 175,230 Z', z:2},
+      {id:'wr',   label:'오른쪽 날개',d:'M225,210 C260,190 320,160 340,200 C355,235 320,280 270,270 C245,265 230,245 225,230 Z', z:2},
+      {id:'dress',label:'드레스',     d:'M155,215 C140,250 135,310 120,380 C150,390 200,385 200,385 C200,385 250,390 280,380 C265,310 260,250 245,215 C225,200 200,196 200,196 C200,196 175,200 155,215 Z', z:3},
+      {id:'face', label:'얼굴',       d:'M200,85 C160,85 140,112 145,147 C150,177 174,197 200,197 C226,197 250,177 255,147 C260,112 240,85 200,85 Z', z:4},
+      {id:'hair', label:'머리카락',   d:'M200,65 C155,60 122,82 127,120 C130,137 138,150 147,157 C150,115 170,92 200,88 C230,92 250,115 253,157 C262,150 270,137 273,120 C278,82 245,60 200,65 Z', z:5},
+      {id:'wand', label:'꽃 지팡이',  d:'M308,168 C310,148 322,140 328,152 C334,164 326,178 320,178 C326,182 334,196 328,208 C322,220 310,212 308,192 C304,212 292,220 286,208 C280,196 288,182 294,178 C288,178 280,164 286,152 C292,140 304,148 308,168 Z M306,190 L310,370 L314,370 L318,190 Z', z:6},
     ]
   },
   {
-    id:'villain', nameKo:'재미있는 악당', nameEn:'Funny Villain',
-    difficulty:2, cc:'#BAE1FF',
+    id:'villain', nameKo:'재미있는 악당', nameEn:'Funny Villain', difficulty:2, cc:'#BAE1FF',
+    unlockReq: ['fairy'],
+    unlocks: 'dragon',
+    headPos: {xpct:.5, ypct:.21},
     prev:{bg:'#483D8B',ground:'#556B2F',robe:'#4B0082',face:'#FFDAB9',hair:'#2F2F2F',hat:'#1a1a1a',orb:'#00FF7F',stick:'#8B6914'},
     regions:[
-      {id:'bg',   label:'밤하늘', d:'M0,0 L400,0 L400,500 L0,500 Z',                                                              z:0},
-      {id:'ground',label:'바닥',  d:'M0,440 C100,430 300,430 400,440 L400,500 L0,500 Z',                                           z:1},
-      {id:'stick',label:'지팡이', d:'M290,210 L294,210 L320,410 L316,410 Z',                                                       z:2},
-      {id:'robe', label:'로브',   d:'M100,220 C80,280 70,360 60,440 L340,440 C330,360 320,280 300,220 C270,200 200,195 200,195 C200,195 130,200 100,220 Z', z:3},
-      {id:'face', label:'얼굴',   d:'M200,88 C158,88 138,118 143,152 C148,182 172,202 200,202 C228,202 252,182 257,152 C262,118 242,88 200,88 Z', z:4},
-      {id:'hair', label:'머리',   d:'M200,68 C145,60 110,85 118,130 C122,145 130,158 140,162 C138,118 158,92 200,88 C242,92 262,118 260,162 C270,158 278,145 282,130 C290,85 255,60 200,68 Z', z:5},
-      {id:'hat',  label:'모자',   d:'M140,75 C150,70 165,68 200,68 C235,68 250,70 260,75 C245,80 215,82 215,82 L225,25 L175,25 L185,82 C185,82 155,80 140,75 Z', z:6},
+      {id:'bg',   label:'밤하늘',  d:'M0,0 L400,0 L400,500 L0,500 Z', z:0},
+      {id:'ground',label:'바닥',   d:'M0,440 C100,430 300,430 400,440 L400,500 L0,500 Z', z:1},
+      {id:'stick',label:'지팡이',  d:'M290,210 L294,210 L320,410 L316,410 Z', z:2},
+      {id:'robe', label:'로브',    d:'M100,220 C80,280 70,360 60,440 L340,440 C330,360 320,280 300,220 C270,200 200,195 200,195 C200,195 130,200 100,220 Z', z:3},
+      {id:'face', label:'얼굴',    d:'M200,88 C158,88 138,118 143,152 C148,182 172,202 200,202 C228,202 252,182 257,152 C262,118 242,88 200,88 Z', z:4},
+      {id:'hair', label:'머리',    d:'M200,68 C145,60 110,85 118,130 C122,145 130,158 140,162 C138,118 158,92 200,88 C242,92 262,118 260,162 C270,158 278,145 282,130 C290,85 255,60 200,68 Z', z:5},
+      {id:'hat',  label:'모자',    d:'M140,75 C150,70 165,68 200,68 C235,68 250,70 260,75 C245,80 215,82 215,82 L225,25 L175,25 L185,82 C185,82 155,80 140,75 Z', z:6},
       {id:'orb',  label:'마법 구슬',d:'M292,195 C285,188 285,178 292,171 C299,164 309,164 316,171 C323,178 323,188 316,195 C309,202 299,202 292,195 Z', z:7},
     ]
   },
   {
-    id:'dragon', nameKo:'귀여운 용', nameEn:'Cute Dragon',
-    difficulty:3, cc:'#FFDFBA',
+    id:'dragon', nameKo:'귀여운 용', nameEn:'Cute Dragon', difficulty:3, cc:'#FFDFBA',
+    unlockReq: ['villain'],
+    unlocks: null,
+    headPos: {xpct:.5, ypct:.25},
     prev:{bg:'#87CEEB',ground:'#90EE90',wl:'#FF4500',wr:'#FF4500',tail:'#FF6347',body:'#FF8C00',belly:'#FFD700',head:'#FF8C00',horns:'#8B0000',eyes:'white'},
     regions:[
-      {id:'bg',   label:'하늘',      d:'M0,0 L400,0 L400,500 L0,500 Z',                                                           z:0},
-      {id:'ground',label:'바닥',     d:'M0,420 C100,405 300,405 400,420 L400,500 L0,500 Z',                                        z:1},
-      {id:'wl',   label:'왼쪽 날개',d:'M110,250 C80,225 40,190 50,240 C55,270 80,300 105,300 Z',                                  z:2},
-      {id:'wr',   label:'오른쪽 날개',d:'M290,250 C320,225 360,190 350,240 C345,270 320,300 295,300 Z',                            z:2},
-      {id:'tail', label:'꼬리',      d:'M285,360 C310,370 350,360 360,340 C370,318 355,298 335,305 C320,310 310,330 305,345 Z',    z:2},
-      {id:'body', label:'몸통',      d:'M200,220 C140,220 100,265 100,320 C100,390 145,420 200,420 C255,420 300,390 300,320 C300,265 260,220 200,220 Z', z:3},
-      {id:'belly',label:'배',        d:'M200,260 C175,260 155,285 155,320 C155,365 175,390 200,390 C225,390 245,365 245,320 C245,285 225,260 200,260 Z', z:4},
-      {id:'head', label:'머리',      d:'M200,105 C155,105 130,132 133,165 C136,200 165,225 200,225 C235,225 264,200 267,165 C270,132 245,105 200,105 Z', z:5},
-      {id:'horns',label:'뿔',        d:'M170,112 L155,78 L175,100 Z M230,112 L245,78 L225,100 Z',                                  z:6},
-      {id:'eyes', label:'눈',        d:'M175,148 C168,140 160,142 160,152 C160,162 168,168 178,164 C186,160 185,148 175,148 Z M225,148 C232,140 240,142 240,152 C240,162 232,168 222,164 C214,160 215,148 225,148 Z', z:7},
+      {id:'bg',   label:'하늘',       d:'M0,0 L400,0 L400,500 L0,500 Z', z:0},
+      {id:'ground',label:'바닥',      d:'M0,420 C100,405 300,405 400,420 L400,500 L0,500 Z', z:1},
+      {id:'wl',   label:'왼쪽 날개', d:'M110,250 C80,225 40,190 50,240 C55,270 80,300 105,300 Z', z:2},
+      {id:'wr',   label:'오른쪽 날개',d:'M290,250 C320,225 360,190 350,240 C345,270 320,300 295,300 Z', z:2},
+      {id:'tail', label:'꼬리',       d:'M285,360 C310,370 350,360 360,340 C370,318 355,298 335,305 C320,310 310,330 305,345 Z', z:2},
+      {id:'body', label:'몸통',       d:'M200,220 C140,220 100,265 100,320 C100,390 145,420 200,420 C255,420 300,390 300,320 C300,265 260,220 200,220 Z', z:3},
+      {id:'belly',label:'배',         d:'M200,260 C175,260 155,285 155,320 C155,365 175,390 200,390 C225,390 245,365 245,320 C245,285 225,260 200,260 Z', z:4},
+      {id:'head', label:'머리',       d:'M200,105 C155,105 130,132 133,165 C136,200 165,225 200,225 C235,225 264,200 267,165 C270,132 245,105 200,105 Z', z:5},
+      {id:'horns',label:'뿔',         d:'M170,112 L155,78 L175,100 Z M230,112 L245,78 L225,100 Z', z:6},
+      {id:'eyes', label:'눈',         d:'M175,148 C168,140 160,142 160,152 C160,162 168,168 178,164 C186,160 185,148 175,148 Z M225,148 C232,140 240,142 240,152 C240,162 232,168 222,164 C214,160 215,148 225,148 Z', z:7},
     ]
   }
 ];
 
-const PALETTE = [
-  '#FF3B30','#FF9500','#FFCC00','#34C759',
-  '#007AFF','#AF52DE','#FF2D55','#FF6B9D',
-  '#5AC8FA','#4CD964','#8B4513','#FFDAB9',
-  '#FFFFFF','#AAAAAA','#555555','#000000'
-];
-
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
 // STATE
-// ══════════════════════════════════════════════
-let curScreen = 'splash';
-let curChar   = null;
-let color     = '#FF3B30';
-let tool      = 'bucket';
-let rColors   = {};        // {regionId: cssColor}
-let strokes   = [];        // [{color,lw,pts,erase}]
-let undos     = [];        // [{t:'r',id,prev}|{t:'s',i}]
-let artworks  = JSON.parse(localStorage.getItem('cwArtworks')||'[]');
+// ═══════════════════════════════════════════════════
+let curScreen  = 'splash';
+let curChar    = null;
+let color      = '#FF3B30';
+let tool       = 'bucket';
+let rColors    = {};
+let strokes    = [];
+let placedStamps   = [];
+let placedStickers = [];
+let undos      = [];
+let curBg      = 'sky';
+let selStamp   = '🌸';
+let selSticker = '⭐';
 let celebrated = false;
+let artworks   = safeParse('cwArtworks', []);
+let unlocked   = safeParse('cwUnlocked', ['princess','prince']);
+let stars      = safeParse('cwStars', {});
 
 let svg, fillL, outlineL, brushCanvas, bCtx, canvasBox;
 
-// ══════════════════════════════════════════════
+function safeParse(key, def) {
+  try { return JSON.parse(localStorage.getItem(key)) || def; } catch(e) { return def; }
+}
+function safeSave(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {}
+}
+
+// ═══════════════════════════════════════════════════
 // NAVIGATION
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
 function show(id) {
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   curScreen = id;
 }
 function goHome()    { buildHome(); show('home'); }
 function goGallery() { buildGallery(); show('gallery'); }
 function goColoring(char) {
-  curChar = char; rColors = {}; strokes = []; undos = []; celebrated = false;
+  if (!unlocked.includes(char.id)) return;
+  curChar = char; rColors = {}; strokes = []; placedStamps = []; placedStickers = []; undos = []; celebrated = false;
   document.getElementById('ttl-ko').textContent = char.nameKo;
   document.getElementById('ttl-en').textContent = char.nameEn;
   buildSVG(char);
   show('coloring');
-  requestAnimationFrame(()=>{ resizeCanvas(); redraw(); updateProg(); syncUndoBtn(); setTool('bucket'); });
+  requestAnimationFrame(() => { resizeCanvas(); redrawBrush(); updateProg(); syncUndo(); setTool('bucket'); });
 }
 
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
 // HOME
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
 function buildHome() {
   const g = document.getElementById('char-grid');
   g.innerHTML = '';
   CHARS.forEach(char => {
-    const done = artworks.some(a=>a.cid===char.id);
-    const stars = '⭐'.repeat(char.difficulty)+'☆'.repeat(3-char.difficulty);
+    const isLocked = !unlocked.includes(char.id);
+    const charStars = stars[char.id] || 0;
+    const starStr = charStars > 0 ? '⭐'.repeat(charStars) + '☆'.repeat(3 - charStars) : '☆☆☆';
+    const hasArt = artworks.some(a => a.cid === char.id);
+
     const card = document.createElement('div');
     card.className = 'char-card';
     card.style.setProperty('--cc', char.cc);
+
+    // unlock requirement label
+    let lockLabel = '';
+    if (isLocked && char.unlockReq) {
+      const reqNames = char.unlockReq.map(id => CHARS.find(c=>c.id===id)?.nameKo).join(' 또는 ');
+      lockLabel = `${reqNames} 완성 시 해제`;
+    }
+
     card.innerHTML = `
-      ${done ? '<div class="done-badge">완성! ⭐</div>' : ''}
+      ${hasArt && !isLocked ? '<div class="done-badge">완성! ⭐</div>' : ''}
       <div class="char-preview">${previewSVG(char)}</div>
       <div class="char-name-ko">${char.nameKo}</div>
       <div class="char-name-en">${char.nameEn}</div>
-      <div class="char-stars">${stars}</div>`;
-    card.onclick = ()=>{ buzz(); goColoring(char); };
+      <div class="card-stars">${starStr}</div>
+      ${isLocked ? `<div class="lock-overlay"><span>🔒</span><span>${lockLabel}</span></div>` : ''}
+    `;
+    if (!isLocked) card.onclick = () => { buzz(); goColoring(char); };
     g.appendChild(card);
   });
 }
 
 function previewSVG(char) {
-  const paths = [...char.regions].sort((a,b)=>a.z-b.z).map(r=>{
-    const f = char.prev[r.id]||'#f8f8f8';
+  const paths = [...char.regions].sort((a,b)=>a.z-b.z).map(r => {
+    const f = char.prev[r.id] || '#f8f8f8';
     return `<path d="${r.d}" fill="${f}" stroke="#1a1a1a" stroke-width="1.5" stroke-linejoin="round"/>`;
   }).join('');
   return `<svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">${paths}</svg>`;
 }
 
-// ══════════════════════════════════════════════
-// COLORING SVG
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
+// BUILD SVG + BACKGROUND
+// ═══════════════════════════════════════════════════
 function buildSVG(char) {
-  svg        = document.getElementById('col-svg');
-  fillL      = document.getElementById('fill-layer');
-  outlineL   = document.getElementById('outline-layer');
-  brushCanvas= document.getElementById('brush-canvas');
-  bCtx       = brushCanvas.getContext('2d');
-  canvasBox  = document.getElementById('canvas-box');
+  svg      = document.getElementById('col-svg');
+  fillL    = document.getElementById('fill-layer');
+  outlineL = document.getElementById('outline-layer');
+  brushCanvas = document.getElementById('brush-canvas');
+  bCtx     = brushCanvas.getContext('2d');
+  canvasBox = document.getElementById('canvas-box');
 
   fillL.innerHTML = ''; outlineL.innerHTML = '';
+  document.getElementById('stamp-layer').innerHTML = '';
+  document.getElementById('sticker-layer').innerHTML = '';
 
-  [...char.regions].sort((a,b)=>a.z-b.z).forEach(r=>{
-    // fill path
+  // build SVG gradient defs for backgrounds
+  const defs = document.getElementById('svg-defs');
+  defs.innerHTML = '';
+  BACKGROUNDS.forEach(bg => {
+    const grad = document.createElementNS('http://www.w3.org/2000/svg','linearGradient');
+    grad.setAttribute('id','bg-'+bg.id);
+    grad.setAttribute('x1','0'); grad.setAttribute('y1','0');
+    grad.setAttribute('x2','0'); grad.setAttribute('y2','1');
+    bg.stops.forEach((c,i) => {
+      const stop = document.createElementNS('http://www.w3.org/2000/svg','stop');
+      stop.setAttribute('offset', (i/(bg.stops.length-1)*100)+'%');
+      stop.setAttribute('stop-color', c);
+      grad.appendChild(stop);
+    });
+    defs.appendChild(grad);
+  });
+
+  [...char.regions].sort((a,b)=>a.z-b.z).forEach(r => {
     const fp = document.createElementNS('http://www.w3.org/2000/svg','path');
     fp.setAttribute('d', r.d);
-    fp.setAttribute('fill', rColors[r.id]||'white');
-    fp.setAttribute('id', 'f-'+r.id);
+    fp.setAttribute('fill', r.id==='bg' ? `url(#bg-${curBg})` : (rColors[r.id]||'white'));
+    fp.setAttribute('id','f-'+r.id);
     fp.style.cursor = 'pointer';
-    fp.addEventListener('click', ()=>{ if(tool==='bucket') doFill(r.id); });
+    fp.addEventListener('click', e => {
+      if (tool==='bucket') {
+        const rect = canvasBox.getBoundingClientRect();
+        doFill(r.id, e.clientX - rect.left, e.clientY - rect.top);
+      }
+    });
     fillL.appendChild(fp);
 
-    // outline path
     const op = document.createElementNS('http://www.w3.org/2000/svg','path');
-    op.setAttribute('d', r.d);
-    op.setAttribute('fill','none');
-    op.setAttribute('stroke','#1a1a1a');
-    op.setAttribute('stroke-width','2.5');
-    op.setAttribute('stroke-linejoin','round');
-    op.setAttribute('stroke-linecap','round');
+    op.setAttribute('d', r.d); op.setAttribute('fill','none');
+    op.setAttribute('stroke','#1a1a1a'); op.setAttribute('stroke-width','2.5');
+    op.setAttribute('stroke-linejoin','round'); op.setAttribute('stroke-linecap','round');
     outlineL.appendChild(op);
   });
 
-  buildPalette();
-  initBrush();
+  buildBgRow(); buildPalette(); buildItemPanels(); initBrush();
 }
 
-function doFill(id) {
-  const prev = rColors[id]||null;
+// ═══════════════════════════════════════════════════
+// BACKGROUND SELECTOR
+// ═══════════════════════════════════════════════════
+function buildBgRow() {
+  const row = document.getElementById('bg-row');
+  row.innerHTML = '';
+  BACKGROUNDS.forEach(bg => {
+    const btn = document.createElement('button');
+    btn.className = 'bg-btn' + (curBg===bg.id ? ' sel' : '');
+    btn.title = bg.label;
+    btn.textContent = bg.emoji;
+    btn.onclick = () => {
+      curBg = bg.id;
+      document.querySelectorAll('.bg-btn').forEach(b=>b.classList.remove('sel'));
+      btn.classList.add('sel');
+      const el = document.getElementById('f-bg');
+      if (el) el.setAttribute('fill', `url(#bg-${curBg})`);
+    };
+    row.appendChild(btn);
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// FILL REGION
+// ═══════════════════════════════════════════════════
+function doFill(id, clientX, clientY) {
+  if (id === 'bg') { return; } // bg is background-only
+  const prev = rColors[id] || null;
   rColors[id] = color;
   const el = document.getElementById('f-'+id);
-  if(el) el.setAttribute('fill', color);
-  undos.push({t:'r',id,prev}); syncUndoBtn(); buzz(); updateProg();
+  if (el) el.setAttribute('fill', color);
+  undos.push({t:'r', id, prev});
+  syncUndo(); buzz(); updateProg();
+  showSparkle(clientX, clientY);
+  showReaction();
 }
 
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
+// SPARKLE EFFECT
+// ═══════════════════════════════════════════════════
+function showSparkle(x, y) {
+  const emojis = ['✨','⭐','💫','🌟'];
+  for (let i = 0; i < 6; i++) {
+    const s = document.createElement('div');
+    s.className = 'spark';
+    s.textContent = emojis[i % emojis.length];
+    const angle = (i / 6) * Math.PI * 2;
+    const dist  = 40 + Math.random() * 30;
+    s.style.left = x + 'px';
+    s.style.top  = y + 'px';
+    s.style.setProperty('--dx', Math.cos(angle)*dist + 'px');
+    s.style.setProperty('--dy', Math.sin(angle)*dist + 'px');
+    s.style.animationDelay = (i * 0.04) + 's';
+    canvasBox.appendChild(s);
+    setTimeout(() => s.remove(), 800);
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// CHARACTER REACTION BUBBLE
+// ═══════════════════════════════════════════════════
+function showReaction() {
+  const box = canvasBox.getBoundingClientRect();
+  const msg = REACTIONS[Math.floor(Math.random() * REACTIONS.length)];
+  const bubble = document.createElement('div');
+  bubble.className = 'reaction';
+  bubble.textContent = msg;
+  if (curChar) {
+    bubble.style.left = (curChar.headPos.xpct * 100 - 10) + '%';
+    bubble.style.top  = (curChar.headPos.ypct * 100 - 10) + '%';
+  } else {
+    bubble.style.left = '30%'; bubble.style.top = '20%';
+  }
+  canvasBox.appendChild(bubble);
+  setTimeout(() => bubble.remove(), 1700);
+}
+
+// ═══════════════════════════════════════════════════
+// TTS - COLOR NAMES
+// ═══════════════════════════════════════════════════
+function speakColor(c) {
+  if (!('speechSynthesis' in window)) return;
+  const name = COLOR_NAMES[c];
+  if (!name) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(name);
+  u.lang = 'ko-KR'; u.rate = 0.85; u.pitch = 1.2;
+  speechSynthesis.speak(u);
+}
+
+// ═══════════════════════════════════════════════════
+// PALETTE
+// ═══════════════════════════════════════════════════
+function buildPalette() {
+  const p = document.getElementById('palette');
+  p.innerHTML = '';
+  PALETTE.forEach(c => {
+    const s = document.createElement('div');
+    s.className = 'swatch' + (c===color ? ' sel' : '');
+    s.style.background = c;
+    if (c==='#FFFFFF') s.style.border = '2px solid #ccc';
+    s.onclick = () => {
+      color = c;
+      document.querySelectorAll('.swatch').forEach(x=>x.classList.remove('sel'));
+      s.classList.add('sel');
+      if (tool==='eraser' || tool==='stamp' || tool==='sticker') setTool('brush');
+      buzz(); speakColor(c);
+    };
+    p.appendChild(s);
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// STAMP + STICKER PANELS
+// ═══════════════════════════════════════════════════
+function buildItemPanels() {
+  buildPanel('stamp-panel',  STAMPS,  selStamp,  (e) => { selStamp=e; });
+  buildPanel('sticker-panel', STICKERS, selSticker, (e) => { selSticker=e; });
+}
+
+function buildPanel(panelId, items, current, onSel) {
+  const panel = document.getElementById(panelId);
+  panel.innerHTML = '';
+  items.forEach(em => {
+    const d = document.createElement('div');
+    d.className = 'item-opt' + (em===current?' sel':'');
+    d.textContent = em;
+    d.onclick = () => {
+      onSel(em);
+      if (panelId==='stamp-panel')   selStamp   = em;
+      if (panelId==='sticker-panel') selSticker = em;
+      panel.querySelectorAll('.item-opt').forEach(x=>x.classList.remove('sel'));
+      d.classList.add('sel');
+    };
+    panel.appendChild(d);
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// PLACE STAMP / STICKER
+// ═══════════════════════════════════════════════════
+function placeItem(type, emoji, xpct, ypct) {
+  const obj = {id: Date.now(), emoji, xpct, ypct};
+  const layerId = type==='stamp' ? 'stamp-layer' : 'sticker-layer';
+  const arr     = type==='stamp' ? placedStamps   : placedStickers;
+  arr.push(obj);
+  undos.push({t: type==='stamp'?'stamp':'sticker', id: obj.id});
+  syncUndo();
+  renderItem(layerId, obj);
+}
+
+function renderItem(layerId, obj) {
+  const layer = document.getElementById(layerId);
+  const el = document.createElement('div');
+  el.className = 'placed-item';
+  el.id = 'item-'+obj.id;
+  el.textContent = obj.emoji;
+  el.style.left = (obj.xpct*100)+'%';
+  el.style.top  = (obj.ypct*100)+'%';
+
+  // drag
+  let sx,sy,ox,oy, tapCount=0, tapTimer;
+  el.addEventListener('touchstart', e => {
+    e.stopPropagation();
+    const t = e.touches[0];
+    sx=t.clientX; sy=t.clientY; ox=obj.xpct; oy=obj.ypct;
+    tapCount++;
+    if (tapCount===1) tapTimer=setTimeout(()=>tapCount=0,350);
+    else if (tapCount>=2) { clearTimeout(tapTimer); tapCount=0; deleteItem(obj.id); }
+  },{passive:true});
+  el.addEventListener('touchmove', e => {
+    e.stopPropagation(); e.preventDefault();
+    const t = e.touches[0], box=canvasBox.getBoundingClientRect();
+    obj.xpct = Math.max(.02,Math.min(.98, ox+(t.clientX-sx)/box.width));
+    obj.ypct = Math.max(.02,Math.min(.98, oy+(t.clientY-sy)/box.height));
+    el.style.left=(obj.xpct*100)+'%'; el.style.top=(obj.ypct*100)+'%';
+  },{passive:false});
+
+  layer.appendChild(el);
+}
+
+function deleteItem(id) {
+  const el=document.getElementById('item-'+id); if(el) el.remove();
+  placedStamps   = placedStamps.filter(s=>s.id!==id);
+  placedStickers = placedStickers.filter(s=>s.id!==id);
+  buzz();
+}
+
+// ═══════════════════════════════════════════════════
 // BRUSH CANVAS
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
 function initBrush() {
-  brushCanvas.removeEventListener('touchstart', onTS);
-  brushCanvas.removeEventListener('touchmove',  onTM);
-  brushCanvas.removeEventListener('touchend',   onTE);
-  brushCanvas.removeEventListener('mousedown',  onMD);
-  brushCanvas.removeEventListener('mousemove',  onMM);
-  brushCanvas.removeEventListener('mouseup',    onMU);
-  brushCanvas.addEventListener('touchstart', onTS, {passive:false});
-  brushCanvas.addEventListener('touchmove',  onTM, {passive:false});
-  brushCanvas.addEventListener('touchend',   onTE, {passive:false});
-  brushCanvas.addEventListener('mousedown',  onMD);
-  brushCanvas.addEventListener('mousemove',  onMM);
-  brushCanvas.addEventListener('mouseup',    onMU);
+  ['touchstart','touchmove','touchend','mousedown','mousemove','mouseup'].forEach(ev => {
+    brushCanvas.removeEventListener(ev, handlers[ev]);
+  });
+  handlers = {
+    touchstart:(e)=>{e.preventDefault();if(tool==='bucket'||tool==='stamp'||tool==='sticker')return;drawing=true;curPts=[pt(e)];},
+    touchmove: (e)=>{e.preventDefault();if(!drawing)return;curPts.push(pt(e));drawLast();},
+    touchend:  (e)=>{e.preventDefault();endStroke();},
+    mousedown: (e)=>{if(tool==='bucket'||tool==='stamp'||tool==='sticker')return;drawing=true;curPts=[pt(e)];},
+    mousemove: (e)=>{if(!drawing)return;curPts.push(pt(e));drawLast();},
+    mouseup:   ()=>endStroke(),
+  };
+  Object.entries(handlers).forEach(([ev,fn]) => {
+    const opts = ev.startsWith('touch') ? {passive:false} : undefined;
+    brushCanvas.addEventListener(ev, fn, opts);
+  });
 }
+let handlers = {};
+let drawing=false, curPts=[];
 
-let drawing = false, curPts = [];
+// tap on canvas for stamp/sticker placement
+document.getElementById('brush-canvas').addEventListener('click', e => {
+  if (tool!=='stamp' && tool!=='sticker') return;
+  const rect = canvasBox.getBoundingClientRect();
+  const xpct = (e.clientX-rect.left)/rect.width;
+  const ypct = (e.clientY-rect.top)/rect.height;
+  placeItem(tool, tool==='stamp'?selStamp:selSticker, xpct, ypct);
+  buzz(); showSparkle(e.clientX-rect.left, e.clientY-rect.top);
+});
 
 function pt(e) {
-  const r = brushCanvas.getBoundingClientRect();
-  const t = e.touches ? e.touches[0] : e;
-  return { x:(t.clientX-r.left)*(brushCanvas.width/r.width),
-           y:(t.clientY-r.top)*(brushCanvas.height/r.height) };
+  const r=brushCanvas.getBoundingClientRect(), t=e.touches?e.touches[0]:e;
+  return {x:(t.clientX-r.left)*(brushCanvas.width/r.width), y:(t.clientY-r.top)*(brushCanvas.height/r.height)};
 }
-function onTS(e){ e.preventDefault(); if(tool==='bucket')return; drawing=true; curPts=[pt(e)]; }
-function onTM(e){ e.preventDefault(); if(!drawing||tool==='bucket')return; curPts.push(pt(e)); drawLast(); }
-function onTE(e){ e.preventDefault(); endStroke(); }
-function onMD(e){ if(tool==='bucket')return; drawing=true; curPts=[pt(e)]; }
-function onMM(e){ if(!drawing||tool==='bucket')return; curPts.push(pt(e)); drawLast(); }
-function onMU(){ endStroke(); }
-
 function drawLast() {
-  if(curPts.length<2) return;
-  bCtx.save();
-  applyBrushStyle();
+  if(curPts.length<2)return;
+  bCtx.save(); applyStyle();
   bCtx.beginPath();
-  const a=curPts[curPts.length-2], b=curPts[curPts.length-1];
+  const a=curPts[curPts.length-2],b=curPts[curPts.length-1];
   bCtx.moveTo(a.x,a.y); bCtx.lineTo(b.x,b.y); bCtx.stroke();
   bCtx.restore();
 }
-
-function applyBrushStyle(ctx) {
-  const c = ctx||bCtx;
-  if(tool==='eraser'){ c.globalCompositeOperation='destination-out'; c.strokeStyle='rgba(0,0,0,1)'; c.lineWidth=40; }
-  else { c.globalCompositeOperation='source-over'; c.strokeStyle=color; c.lineWidth=20; }
+function applyStyle(ctx) {
+  const c=ctx||bCtx;
+  if(tool==='eraser'){c.globalCompositeOperation='destination-out';c.strokeStyle='rgba(0,0,0,1)';c.lineWidth=38;}
+  else{c.globalCompositeOperation='source-over';c.strokeStyle=color;c.lineWidth=20;}
   c.lineCap='round'; c.lineJoin='round';
 }
-
 function endStroke() {
-  if(!drawing) return; drawing=false;
-  if(curPts.length<2){ curPts=[]; return; }
-  const s={color,lw:tool==='eraser'?40:20,pts:[...curPts],erase:tool==='eraser'};
+  if(!drawing)return; drawing=false;
+  if(curPts.length<2){curPts=[];return;}
+  const s={color,lw:tool==='eraser'?38:20,pts:[...curPts],erase:tool==='eraser'};
   strokes.push(s);
   undos.push({t:'s',i:strokes.length-1});
-  syncUndoBtn(); curPts=[];
+  syncUndo(); curPts=[];
 }
-
-function redraw() {
-  if(!bCtx) return;
+function redrawBrush() {
+  if(!bCtx)return;
   bCtx.clearRect(0,0,brushCanvas.width,brushCanvas.height);
   strokes.forEach(s=>{
-    if(s.pts.length<2) return;
+    if(s.pts.length<2)return;
     bCtx.save();
-    if(s.erase){ bCtx.globalCompositeOperation='destination-out'; bCtx.strokeStyle='rgba(0,0,0,1)'; }
-    else { bCtx.globalCompositeOperation='source-over'; bCtx.strokeStyle=s.color; }
+    if(s.erase){bCtx.globalCompositeOperation='destination-out';bCtx.strokeStyle='rgba(0,0,0,1)';}
+    else{bCtx.globalCompositeOperation='source-over';bCtx.strokeStyle=s.color;}
     bCtx.lineWidth=s.lw; bCtx.lineCap='round'; bCtx.lineJoin='round';
     bCtx.beginPath(); bCtx.moveTo(s.pts[0].x,s.pts[0].y);
     s.pts.forEach(p=>bCtx.lineTo(p.x,p.y)); bCtx.stroke(); bCtx.restore();
   });
 }
 
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
 // RESIZE
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
 function resizeCanvas() {
-  const w0 = document.getElementById('canvas-wrapper');
-  const aw = w0.clientWidth-20, ah = w0.clientHeight;
-  const ar = 4/5;
+  const wr=document.getElementById('canvas-wrapper');
+  const aw=wr.clientWidth-20, ah=wr.clientHeight;
+  const ar=4/5;
   let w,h;
-  if(aw/ah > ar){ h=ah; w=h*ar; } else { w=aw; h=w/ar; }
+  if(aw/ah>ar){h=ah;w=h*ar;}else{w=aw;h=w/ar;}
   canvasBox.style.width=w+'px'; canvasBox.style.height=h+'px';
   brushCanvas.width=w; brushCanvas.height=h;
-  redraw();
+  redrawBrush();
 }
-window.addEventListener('resize',()=>{ if(curScreen==='coloring') resizeCanvas(); });
+window.addEventListener('resize',()=>{if(curScreen==='coloring')resizeCanvas();});
 
-// ══════════════════════════════════════════════
-// TOOL & PALETTE
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
+// TOOL SWITCHING
+// ═══════════════════════════════════════════════════
 function setTool(t) {
-  tool = t;
-  ['bucket','brush','eraser'].forEach(x=>{
-    document.getElementById('btn-'+x).classList.toggle('on', x===t);
+  tool=t;
+  ['bucket','brush','eraser','stamp','sticker'].forEach(x=>{
+    document.getElementById('btn-'+x).classList.toggle('on',x===t);
   });
-  if(t==='bucket'){ brushCanvas.style.pointerEvents='none'; svg.style.pointerEvents='all'; }
-  else { brushCanvas.style.pointerEvents='all'; svg.style.pointerEvents='none'; }
+  // pointer events
+  const useBrush = (t==='brush'||t==='eraser'||t==='stamp'||t==='sticker');
+  brushCanvas.style.pointerEvents = useBrush ? 'all' : 'none';
+  svg.style.pointerEvents = t==='bucket' ? 'all' : 'none';
+  // panels
+  document.getElementById('stamp-panel').classList.toggle('show', t==='stamp');
+  document.getElementById('sticker-panel').classList.toggle('show', t==='sticker');
 }
 
-function buildPalette() {
-  const p = document.getElementById('palette'); p.innerHTML='';
-  PALETTE.forEach(c=>{
-    const s=document.createElement('div');
-    s.className='swatch'+(c===color?' sel':'');
-    s.style.background=c;
-    if(c==='#FFFFFF') s.style.border='2px solid #ccc';
-    s.onclick=()=>{
-      color=c;
-      document.querySelectorAll('.swatch').forEach(x=>x.classList.remove('sel'));
-      s.classList.add('sel');
-      if(tool==='eraser') setTool('brush');
-      buzz();
-    };
-    p.appendChild(s);
-  });
-}
-
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
 // UNDO
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
 function undo() {
-  if(!undos.length) return;
-  const a = undos.pop();
+  if(!undos.length)return;
+  const a=undos.pop();
   if(a.t==='r'){
     const el=document.getElementById('f-'+a.id);
-    if(a.prev===null){ delete rColors[a.id]; if(el) el.setAttribute('fill','white'); }
-    else { rColors[a.id]=a.prev; if(el) el.setAttribute('fill',a.prev); }
+    if(a.prev===null){delete rColors[a.id];if(el)el.setAttribute('fill','white');}
+    else{rColors[a.id]=a.prev;if(el)el.setAttribute('fill',a.prev);}
     updateProg();
-  } else {
-    strokes.splice(a.i,1); redraw();
+  } else if(a.t==='s'){
+    strokes.splice(a.i,1); redrawBrush();
+  } else if(a.t==='stamp'||a.t==='sticker'){
+    deleteItem(a.id);
   }
-  syncUndoBtn();
+  syncUndo();
 }
-function syncUndoBtn(){
-  document.getElementById('undo-btn').disabled = undos.length===0;
-}
+function syncUndo(){document.getElementById('undo-btn').disabled=undos.length===0;}
 
-// ══════════════════════════════════════════════
-// PROGRESS
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
+// PROGRESS + STARS
+// ═══════════════════════════════════════════════════
+function calcPct() {
+  if(!curChar)return 0;
+  const regions = curChar.regions.filter(r=>r.id!=='bg'&&r.id!=='ground');
+  const done    = regions.filter(r=>rColors[r.id]).length;
+  return regions.length ? done/regions.length : 0;
+}
+function calcStars(pct) {
+  if(pct>=.90)return 3; if(pct>=.75)return 2; if(pct>=.50)return 1; return 0;
+}
 function updateProg() {
-  if(!curChar) return;
-  const nonBg = curChar.regions.filter(r=>r.id!=='bg'&&r.id!=='ground');
-  const done  = nonBg.filter(r=>rColors[r.id]).length;
-  const pct   = nonBg.length ? done/nonBg.length : 0;
-  document.getElementById('prog-fill').style.width = (pct*100)+'%';
-  document.getElementById('prog-pct').textContent  = Math.round(pct*100)+'%';
-  if(pct>=0.8 && !celebrated){ celebrated=true; setTimeout(showCelebrate,500); }
+  const pct=calcPct();
+  document.getElementById('prog-fill').style.width=(pct*100)+'%';
+  document.getElementById('prog-pct').textContent=Math.round(pct*100)+'%';
+  if(pct>=0.8&&!celebrated){ celebrated=true; setTimeout(()=>triggerCompletion(pct),500); }
+}
+function triggerCompletion(pct) {
+  // glow animation
+  canvasBox.classList.add('glow');
+  setTimeout(()=>canvasBox.classList.remove('glow'),1100);
+  // show celebration
+  setTimeout(()=>{
+    const s=calcStars(pct);
+    document.getElementById('cel-stars').textContent='⭐'.repeat(s)+'☆'.repeat(3-s);
+    spawnConfetti();
+    document.getElementById('celebrate').classList.add('show');
+  },700);
 }
 
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
+// UNLOCK SYSTEM
+// ═══════════════════════════════════════════════════
+function checkUnlock(charId) {
+  const char = CHARS.find(c=>c.id===charId);
+  if(!char||!char.unlocks)return;
+  const next = char.unlocks;
+  if(unlocked.includes(next))return;
+  const nextChar = CHARS.find(c=>c.id===next);
+  if(!nextChar)return;
+  // check if requirements met
+  const reqs = nextChar.unlockReq||[];
+  const met  = reqs.some(r=>unlocked.includes(r));
+  if(!met)return;
+  unlocked.push(next);
+  safeSave('cwUnlocked',unlocked);
+  setTimeout(()=>showUnlockPopup(nextChar),1200);
+}
+function showUnlockPopup(char){
+  document.getElementById('unlock-msg').textContent=`${char.nameKo} 이(가) 해제되었어요! 🎉`;
+  const pop=document.getElementById('unlock-popup');
+  pop.classList.add('show');
+  setTimeout(()=>pop.classList.remove('show'),3500);
+}
+
+// ═══════════════════════════════════════════════════
 // CELEBRATION
-// ══════════════════════════════════════════════
-function showCelebrate() {
-  spawnConfetti();
-  document.getElementById('celebrate').classList.add('show');
-}
-function hideCelebrate() { document.getElementById('celebrate').classList.remove('show'); }
-function saveAndExit()   { saveArtwork(); hideCelebrate(); goHome(); }
-
-function spawnConfetti() {
+// ═══════════════════════════════════════════════════
+function hideCelebrate(){document.getElementById('celebrate').classList.remove('show');}
+function saveAndExit(){saveArtwork();hideCelebrate();goHome();}
+function spawnConfetti(){
   const cols=['#FF6B6B','#FFD700','#34C759','#007AFF','#AF52DE','#FF2D55','#FF9500'];
   for(let i=0;i<55;i++){
-    const d=document.createElement('div');
-    d.className='confetti-p';
+    const d=document.createElement('div'); d.className='confetti-p';
     d.style.setProperty('--d',(Math.random()*1.5+1.5)+'s');
     d.style.setProperty('--dl',(Math.random()*1.2)+'s');
     d.style.setProperty('--dx',(Math.random()*200-100)+'px');
     d.style.left=Math.random()*100+'vw';
     d.style.background=cols[i%cols.length];
     d.style.borderRadius=Math.random()>.5?'50%':'3px';
-    d.style.width=(Math.random()*10+5)+'px';
-    d.style.height=d.style.width;
-    document.body.appendChild(d);
-    setTimeout(()=>d.remove(), 4000);
+    const sz=(Math.random()*10+5)+'px'; d.style.width=sz; d.style.height=sz;
+    document.body.appendChild(d); setTimeout(()=>d.remove(),4000);
   }
 }
 
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
 // SAVE
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
 function saveArtwork() {
-  if(!curChar) return;
-  const svgEl   = document.getElementById('col-svg');
-  const svgStr  = new XMLSerializer().serializeToString(svgEl);
-  const dataUri = 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svgStr);
+  if(!curChar)return;
+  const pct = calcPct();
+  const starCount = calcStars(pct);
+  // update stars if improved
+  if((stars[curChar.id]||0) < starCount){
+    stars[curChar.id]=starCount; safeSave('cwStars',stars);
+  }
+  checkUnlock(curChar.id);
 
-  const comp = document.createElement('canvas');
-  comp.width=400; comp.height=500;
-  const ctx = comp.getContext('2d');
+  const svgEl  = document.getElementById('col-svg');
+  const svgStr = new XMLSerializer().serializeToString(svgEl);
+  const svgUri = 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svgStr);
 
-  const img = new Image();
-  img.onload = () => {
+  const comp=document.createElement('canvas'); comp.width=400; comp.height=500;
+  const ctx=comp.getContext('2d');
+
+  const img=new Image();
+  img.onload=()=>{
     ctx.fillStyle='white'; ctx.fillRect(0,0,400,500);
     ctx.drawImage(img,0,0,400,500);
-    // overlay brush strokes
-    const b2 = new Image();
-    b2.onload = ()=>{
-      ctx.drawImage(b2,0,0,400,500);
-      persist(comp.toDataURL('image/png'));
-    };
-    b2.onerror = ()=>persist(comp.toDataURL('image/png'));
-    b2.src = brushCanvas.toDataURL();
+    // brush layer
+    const bi=new Image();
+    bi.onload=()=>{ ctx.drawImage(bi,0,0,400,500); renderDecorationsToCanvas(ctx,comp); };
+    bi.onerror=()=>{ renderDecorationsToCanvas(ctx,comp); };
+    bi.src=brushCanvas.toDataURL();
   };
-  img.onerror = ()=>persist(dataUri);
-  img.src = dataUri;
+  img.onerror=()=>persist(svgUri, starCount);
+  img.src=svgUri;
 }
 
-function persist(dataUrl) {
-  const aw={id:Date.now(), cid:curChar.id, nameKo:curChar.nameKo, dataUrl,
-             date:new Date().toLocaleDateString('ko-KR',{month:'long',day:'numeric'})};
+function renderDecorationsToCanvas(ctx, comp) {
+  // draw stamps + stickers as emoji text
+  ctx.textBaseline='middle'; ctx.textAlign='center';
+  [...placedStamps, ...placedStickers].forEach(item=>{
+    ctx.font='42px Arial';
+    ctx.fillText(item.emoji, item.xpct*400, item.ypct*500);
+  });
+  persist(comp.toDataURL('image/png'), calcStars(calcPct()));
+}
+
+function persist(dataUrl, starCount) {
+  const aw={id:Date.now(), cid:curChar.id, nameKo:curChar.nameKo, starCount,
+             dataUrl, date:new Date().toLocaleDateString('ko-KR',{month:'long',day:'numeric'})};
   artworks.unshift(aw);
-  if(artworks.length>60) artworks.pop();
-  try{ localStorage.setItem('cwArtworks',JSON.stringify(artworks)); }catch(e){}
+  if(artworks.length>60)artworks.pop();
+  safeSave('cwArtworks',artworks);
   toast('저장되었어요! 💾');
 }
 
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
 // GALLERY
-// ══════════════════════════════════════════════
-function buildGallery() {
-  const body = document.getElementById('gallery-body');
-  body.innerHTML = '';
+// ═══════════════════════════════════════════════════
+function buildGallery(){
+  const body=document.getElementById('gallery-body');
+  body.innerHTML='';
   if(!artworks.length){
     body.innerHTML=`<div class="empty-state"><div class="ei">🎨</div><h3>아직 작품이 없어요!</h3><p>색칠하고 저장해보세요!</p></div>`;
     return;
@@ -821,10 +1002,11 @@ function buildGallery() {
   const g=document.createElement('div'); g.className='art-grid';
   artworks.forEach(a=>{
     const item=document.createElement('div'); item.className='art-item';
+    const stars_str='⭐'.repeat(a.starCount||0);
     item.innerHTML=`
       <button class="del-btn" onclick="delArt(${a.id},event)">×</button>
       <img src="${a.dataUrl}" alt="${a.nameKo}" loading="lazy">
-      <div class="art-name">${a.nameKo}</div>
+      <div class="art-name">${a.nameKo} ${stars_str}</div>
       <div class="art-date">${a.date}</div>`;
     g.appendChild(item);
   });
@@ -834,20 +1016,19 @@ function delArt(id,e){
   e.stopPropagation();
   if(confirm('이 작품을 삭제할까요?')){
     artworks=artworks.filter(a=>a.id!==id);
-    try{ localStorage.setItem('cwArtworks',JSON.stringify(artworks)); }catch(e){}
-    buildGallery();
+    safeSave('cwArtworks',artworks); buildGallery();
   }
 }
 
-// ══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════
 // UTILS
-// ══════════════════════════════════════════════
-function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
-function buzz(){ if('vibrate' in navigator) navigator.vibrate(10); }
+// ═══════════════════════════════════════════════════
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function buzz(){if('vibrate' in navigator)navigator.vibrate(10);}
 
-// ── init ──
+// ── INIT ──
 buildHome();
-setTimeout(()=>{ if(curScreen==='splash') goHome(); }, 4000);
+setTimeout(()=>{if(curScreen==='splash')goHome();},4000);
 </script>
 </body>
 </html>
