@@ -445,12 +445,12 @@ function goHome()    { buildHome(); show('home'); }
 function goGallery() { buildGallery(); show('gallery'); }
 function goColoring(char) {
   if (!unlocked.includes(char.id)) return;
-  curChar = char; rColors = {}; strokes = []; placedStamps = []; placedStickers = []; undos = []; celebrated = false;
+  curChar = char; rColors = {}; strokes = []; placedStamps = []; placedStickers = []; undos = []; celebrated = false; curRegionId = null;
   document.getElementById('ttl-ko').textContent = char.nameKo;
   document.getElementById('ttl-en').textContent = char.nameEn;
   buildSVG(char);
   show('coloring');
-  requestAnimationFrame(() => { resizeCanvas(); redrawBrush(); updateProg(); syncUndo(); setTool('bucket'); });
+  requestAnimationFrame(() => { resizeCanvas(); redrawBrush(); updateProg(); syncUndo(); setTool('brush'); });
 }
 
 // ═══════════════════════════════════════════════════
@@ -757,12 +757,47 @@ function initBrush() {
     brushCanvas.removeEventListener(ev, handlers[ev]);
   });
   handlers = {
-    touchstart:(e)=>{e.preventDefault();if(tool==='bucket'||tool==='stamp'||tool==='sticker')return;drawing=true;curPts=[pt(e)];},
-    touchmove: (e)=>{e.preventDefault();if(!drawing)return;curPts.push(pt(e));drawLast();},
+    touchstart:(e)=>{
+      e.preventDefault();
+      if(tool==='bucket'||tool==='stamp'||tool==='sticker')return;
+      const p=pt(e); drawing=true; curPts=[p];
+      curRegionId=(tool==='brush')?getRegionAtPoint(p.x,p.y):null;
+    },
+    touchmove:(e)=>{
+      e.preventDefault(); if(!drawing)return;
+      const p=pt(e); curPts.push(p);
+      if(tool==='eraser'){
+        const rId=getRegionAtPoint(p.x,p.y);
+        if(rId&&rColors[rId]){
+          const prev=rColors[rId]; delete rColors[rId];
+          const el=document.getElementById('f-'+rId);
+          if(el)el.setAttribute('fill','white');
+          undos.push({t:'r',id:rId,prev}); syncUndo(); updateProg();
+        }
+      }
+      drawLast();
+    },
     touchend:  (e)=>{e.preventDefault();endStroke();},
-    mousedown: (e)=>{if(tool==='bucket'||tool==='stamp'||tool==='sticker')return;drawing=true;curPts=[pt(e)];},
-    mousemove: (e)=>{if(!drawing)return;curPts.push(pt(e));drawLast();},
-    mouseup:   ()=>endStroke(),
+    mousedown: (e)=>{
+      if(tool==='bucket'||tool==='stamp'||tool==='sticker')return;
+      const p=pt(e); drawing=true; curPts=[p];
+      curRegionId=(tool==='brush')?getRegionAtPoint(p.x,p.y):null;
+    },
+    mousemove:(e)=>{
+      if(!drawing)return;
+      const p=pt(e); curPts.push(p);
+      if(tool==='eraser'){
+        const rId=getRegionAtPoint(p.x,p.y);
+        if(rId&&rColors[rId]){
+          const prev=rColors[rId]; delete rColors[rId];
+          const el=document.getElementById('f-'+rId);
+          if(el)el.setAttribute('fill','white');
+          undos.push({t:'r',id:rId,prev}); syncUndo(); updateProg();
+        }
+      }
+      drawLast();
+    },
+    mouseup:()=>endStroke(),
   };
   Object.entries(handlers).forEach(([ev,fn]) => {
     const opts = ev.startsWith('touch') ? {passive:false} : undefined;
@@ -770,7 +805,7 @@ function initBrush() {
   });
 }
 let handlers = {};
-let drawing=false, curPts=[];
+let drawing=false, curPts=[], curRegionId=null;
 
 // tap on canvas-box for stamp/sticker placement (touch + click)
 document.getElementById('canvas-box').addEventListener('touchend', e=>{
@@ -796,9 +831,28 @@ function pt(e) {
   const r=brushCanvas.getBoundingClientRect(), t=e.touches?e.touches[0]:e;
   return {x:(t.clientX-r.left)*(brushCanvas.width/r.width), y:(t.clientY-r.top)*(brushCanvas.height/r.height)};
 }
+function getRegionAtPoint(cx, cy) {
+  if(!curChar||!bCtx)return null;
+  const sx=cx*(400/brushCanvas.width), sy=cy*(500/brushCanvas.height);
+  const sorted=[...curChar.regions].sort((a,b)=>b.z-a.z);
+  for(const r of sorted){
+    if(r.id==='bg')continue;
+    if(bCtx.isPointInPath(new Path2D(r.d), sx, sy))return r.id;
+  }
+  return null;
+}
 function drawLast() {
   if(curPts.length<2)return;
-  bCtx.save(); applyStyle();
+  bCtx.save();
+  if(tool==='brush'&&curRegionId&&curChar){
+    const region=curChar.regions.find(r=>r.id===curRegionId);
+    if(region){
+      bCtx.setTransform(brushCanvas.width/400,0,0,brushCanvas.height/500,0,0);
+      bCtx.clip(new Path2D(region.d));
+      bCtx.setTransform(1,0,0,1,0,0);
+    }
+  }
+  applyStyle();
   bCtx.beginPath();
   const a=curPts[curPts.length-2],b=curPts[curPts.length-1];
   bCtx.moveTo(a.x,a.y); bCtx.lineTo(b.x,b.y); bCtx.stroke();
@@ -806,17 +860,24 @@ function drawLast() {
 }
 function applyStyle(ctx) {
   const c=ctx||bCtx;
-  if(tool==='eraser'){c.globalCompositeOperation='destination-out';c.strokeStyle='rgba(0,0,0,1)';c.lineWidth=38;}
-  else{c.globalCompositeOperation='source-over';c.strokeStyle=color;c.lineWidth=20;}
+  if(tool==='eraser'){c.globalCompositeOperation='destination-out';c.strokeStyle='rgba(0,0,0,1)';c.lineWidth=44;}
+  else{c.globalCompositeOperation='source-over';c.strokeStyle=color;c.lineWidth=24;}
   c.lineCap='round'; c.lineJoin='round';
 }
 function endStroke() {
   if(!drawing)return; drawing=false;
-  if(curPts.length<2){curPts=[];return;}
-  const s={color,lw:tool==='eraser'?38:20,pts:[...curPts],erase:tool==='eraser'};
+  if(curPts.length<2){
+    // single tap in brush mode → bucket fill that region
+    if(curPts.length===1&&tool==='brush'&&curRegionId){
+      doFill(curRegionId,curPts[0].x,curPts[0].y);
+    }
+    curPts=[]; curRegionId=null; return;
+  }
+  const s={color,lw:tool==='eraser'?44:24,pts:[...curPts],erase:tool==='eraser',regionId:curRegionId};
   strokes.push(s);
   undos.push({t:'s',i:strokes.length-1});
-  syncUndo(); curPts=[];
+  syncUndo(); curPts=[]; curRegionId=null;
+  updateProg();
 }
 function redrawBrush() {
   if(!bCtx)return;
@@ -824,6 +885,14 @@ function redrawBrush() {
   strokes.forEach(s=>{
     if(s.pts.length<2)return;
     bCtx.save();
+    if(!s.erase&&s.regionId&&curChar){
+      const region=curChar.regions.find(r=>r.id===s.regionId);
+      if(region){
+        bCtx.setTransform(brushCanvas.width/400,0,0,brushCanvas.height/500,0,0);
+        bCtx.clip(new Path2D(region.d));
+        bCtx.setTransform(1,0,0,1,0,0);
+      }
+    }
     if(s.erase){bCtx.globalCompositeOperation='destination-out';bCtx.strokeStyle='rgba(0,0,0,1)';}
     else{bCtx.globalCompositeOperation='source-over';bCtx.strokeStyle=s.color;}
     bCtx.lineWidth=s.lw; bCtx.lineCap='round'; bCtx.lineJoin='round';
