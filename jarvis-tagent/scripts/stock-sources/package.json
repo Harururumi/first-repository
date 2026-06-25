@@ -1,0 +1,13 @@
+{
+  "name": "jarvis-stock-sources",
+  "private": true,
+  "type": "commonjs",
+  "description": "Multi-source stock/portfolio data layer for the stock-advise Skill and stock-analyst Subagent.",
+  "scripts": {
+    "test": "node --test test/aggregate.test.js test/connectors.test.js test/index.test.js",
+    "test:integration": "node --test test/integration.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
